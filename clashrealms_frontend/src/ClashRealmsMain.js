@@ -948,14 +948,237 @@ function BattleScreen({ onWin, isScreenLoading }) {
   );
 }
 
+/**
+ * LeaderboardsSection: Shows mock leaderboard for Top Players and Top Clans.
+ * Uses dummy arrays and stylized rows for ranking, name, trophies/score, and relevant stats.
+ * PUBLIC_INTERFACE
+ */
+function LeaderboardsSection() {
+  // Dummy data
+  const playerEmojis = ["👑", "🧙", "👹", "🏹", "🛡️", "🤴", "👺"];
+  const clanEmojis = ["🛡️", "🔥", "💎", "⚔️", "☠️", "🏰", "🦅"];
+
+  const topPlayers = [
+    { rank: 1, name: "KingMax", trophies: 4120, emoji: "👑", level: 21 },
+    { rank: 2, name: "Archie", trophies: 3990, emoji: "🏹", level: 19 },
+    { rank: 3, name: "MegaGob", trophies: 3821, emoji: "👺", level: 18 },
+    { rank: 4, name: "TheWizard", trophies: 3580, emoji: "🧙", level: 17 },
+    { rank: 5, name: "ShieldHero", trophies: 3471, emoji: "🛡️", level: 17 },
+    { rank: 6, name: "Barbro", trophies: 3265, emoji: "👹", level: 16 },
+    { rank: 7, name: "Valor", trophies: 3163, emoji: "🤴", level: 16 },
+    { rank: 8, name: "Ranger", trophies: 3037, emoji: "🏹", level: 15 },
+    { rank: 9, name: "Defender", trophies: 2959, emoji: "🛡️", level: 15 },
+    { rank: 10, name: "ElixirBoy", trophies: 2832, emoji: "💎", level: 14 },
+  ];
+
+  const topClans = [
+    { rank: 1, name: "Vault Legion", badge: "🏰", points: 24407, members: 41 },
+    { rank: 2, name: "StormFire", badge: "🔥", points: 21980, members: 37 },
+    { rank: 3, name: "CrystalWings", badge: "💎", points: 20532, members: 39 },
+    { rank: 4, name: "Night Owls", badge: "🦅", points: 20233, members: 40 },
+    { rank: 5, name: "Warriors", badge: "⚔️", points: 18922, members: 45 },
+    { rank: 6, name: "IronGuard", badge: "🛡️", points: 18565, members: 43 },
+    { rank: 7, name: "DeadlyArrows", badge: "🏹", points: 18109, members: 38 },
+    { rank: 8, name: "Elixir Elite", badge: "💎", points: 17540, members: 36 },
+    { rank: 9, name: "ShadowTribe", badge: "☠️", points: 17288, members: 38 },
+    { rank: 10, name: "Fusion", badge: "🔥", points: 15813, members: 30 },
+  ];
+
+  // Renders a stylized leaderboard table (used for both player and clan leaderboards)
+  function LeaderboardTable({ data, type }) {
+    return (
+      <div
+        className="cr-leaderboard-table"
+        aria-label={type === "player" ? "Top Players" : "Top Clans"}
+        style={{
+          background: "var(--cr-bg-card, #fff9e0)",
+          border: "2px solid var(--cr-primary, #F5C542)",
+          borderRadius: 17,
+          boxShadow: "0 2px 16px var(--cr-shadow)",
+          margin: "0 auto 28px auto",
+          width: "100%",
+          maxWidth: 480,
+          overflowX: "auto",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            fontWeight: 700,
+            color: "var(--cr-secondary)",
+            fontSize: "1.07em",
+            borderBottom: "2px solid #ecd85377",
+            background:
+              type === "player"
+                ? "linear-gradient(90deg,#fffded 60%,#fde8cd 100%)"
+                : "linear-gradient(90deg,#fffded 40%,#e8dfbc 100%)",
+            padding: "7px 0",
+          }}
+        >
+          <span style={{ flex: "0 0 42px", textAlign: "center" }}>#</span>
+          <span style={{ flex: type === "player" ? 2.2 : 2, minWidth: 95 }}>
+            {type === "player" ? "Player" : "Clan"}
+          </span>
+          {type === "player" ? (
+            <>
+              <span style={{ flex: 0.7, minWidth: 55, textAlign: "center" }}>Lvl</span>
+              <span style={{ flex: 1, minWidth: 56, textAlign: "center" }}>🏆 Trophies</span>
+            </>
+          ) : (
+            <>
+              <span style={{ flex: 0.9, minWidth: 60, textAlign: "center" }}>Pts</span>
+              <span style={{ flex: 0.7, minWidth: 55, textAlign: "center" }}>Members</span>
+            </>
+          )}
+        </div>
+        <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          {data.map((row, idx) => (
+            <li
+              key={row.rank}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "7px 0",
+                borderBottom: idx < data.length - 1 ? "1.5px solid #ecd8532c" : "none",
+                background:
+                  row.rank === 1
+                    ? "linear-gradient(90deg, #fff8d5 62%, #ffe02f24 100%)"
+                    : row.rank === 2
+                    ? "linear-gradient(90deg,#fffbe8 50%, #ffedbc1a 100%)"
+                    : row.rank === 3
+                    ? "linear-gradient(90deg,#fffbe3 40%, #fde5ca09 100%)"
+                    : undefined,
+                fontWeight: row.rank <= 3 ? 700 : 500,
+                color: row.rank <= 3 ? "#b49b26" : "#38210D",
+                fontSize: row.rank === 1 ? "1.13em" : "1.04em",
+              }}
+            >
+              <span
+                aria-label={`Rank ${row.rank}`}
+                style={{
+                  flex: "0 0 42px",
+                  textAlign: "center",
+                  fontWeight: 700,
+                  fontSize: row.rank <= 3 ? "1.18em" : "1em",
+                  color:
+                    row.rank === 1
+                      ? "#e7ba0d"
+                      : row.rank === 2
+                      ? "#b9b9b9"
+                      : row.rank === 3
+                      ? "#a87633"
+                      : "#8d791e",
+                }}
+              >
+                {row.rank}
+              </span>
+              <span
+                style={{
+                  flex: type === "player" ? 2.2 : 2,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  minWidth: 80,
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                <span style={{ fontSize: "1.3em" }}>{row.emoji || row.badge}</span>
+                <span>{row.name}</span>
+              </span>
+              {type === "player" ? (
+                <>
+                  <span style={{ flex: 0.7, textAlign: "center", minWidth: 42 }}>{row.level}</span>
+                  <span
+                    style={{
+                      flex: 1,
+                      textAlign: "center",
+                      minWidth: 45,
+                      color: "#f5c542",
+                      fontWeight: 800,
+                    }}
+                  >
+                    {row.trophies}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span
+                    style={{
+                      flex: 0.9,
+                      textAlign: "center",
+                      minWidth: 48,
+                      color: "#f5c542",
+                      fontWeight: 800,
+                    }}
+                  >
+                    {row.points}
+                  </span>
+                  <span style={{ flex: 0.7, textAlign: "center", minWidth: 40, color: "#3DBB3D", fontWeight: 700 }}>
+                    {row.members}
+                  </span>
+                </>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    );
+  }
+
+  // Section with tabs if desired later (now just shows both lists)
+  return (
+    <div style={{ maxWidth: 500, margin: "0 auto", padding: "9px 0" }}>
+      <h2 style={{ color: "var(--cr-secondary)", fontWeight: 800, fontSize: "2em", margin: "5px 0 17px 0", textAlign: "center" }}>
+        🏆 Leaderboards
+      </h2>
+      <section aria-label="Top Players" style={{ marginBottom: 18 }}>
+        <h3
+          style={{
+            color: "#ffe54f",
+            fontWeight: 600,
+            margin: "0 0 3px 0",
+            fontSize: "1.18em",
+            letterSpacing: ".4px",
+            textShadow: "0 1.4px 10px #ffe34315",
+            textAlign: "left",
+          }}
+        >
+          Top Players
+        </h3>
+        <LeaderboardTable data={topPlayers} type="player" />
+      </section>
+      <section aria-label="Top Clans">
+        <h3
+          style={{
+            color: "#ffd9a4",
+            fontWeight: 600,
+            margin: "10px 0 3px 0",
+            fontSize: "1.16em",
+            letterSpacing: ".4px",
+            textShadow: "0 1.4px 9px #ffa47d18",
+            textAlign: "left",
+          }}
+        >
+          Top Clans
+        </h3>
+        <LeaderboardTable data={topClans} type="clan" />
+      </section>
+      <div className="cr-hint" style={{marginTop: 10, fontSize: "1em", color:"#b48e2a", textAlign: "center"}}>
+        More competitive features coming soon!
+      </div>
+    </div>
+  );
+}
+
+// Clan Screen now hosts leaderboards area
 function ClanScreen({ isScreenLoading }) {
   return (
     <div className="cr-clan-screen" tabIndex={0} role="region" aria-label="Clan Screen">
-      <h2>Clans</h2>
-      <p>Clan features coming soon. Join or create a clan, chat, and participate in clan wars.</p>
+      <LeaderboardsSection />
       {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
-
     </div>
   );
 }

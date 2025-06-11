@@ -602,6 +602,52 @@
   margin-bottom: 9px;
 }
 
+/* --- LEADERBOARDS --- */
+.cr-leaderboard-table {
+  margin-bottom: 34px;
+  background: var(--cr-bg-card, #fff9e0);
+  border-radius: 17px;
+  border: 2px solid var(--cr-primary, #F5C542);
+  box-shadow: 0 2px 17px var(--cr-shadow);
+  max-width: 97vw;
+  overflow-x: auto;
+}
+
+.cr-leaderboard-table ol,
+.cr-leaderboard-table ul {
+  margin: 0;
+  padding: 0;
+}
+
+.cr-leaderboard-table li {
+  list-style: none;
+  min-height: 38px;
+}
+
+@media (max-width: 540px) {
+  .cr-leaderboard-table {
+    font-size: 0.98em;
+    border-radius: 11px;
+    min-width: 0;
+    max-width: 100vw;
+  }
+  .cr-leaderboard-table li {
+    min-height: 34px;
+    font-size: 0.97em;
+  }
+  .cr-leaderboard-table .header {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 410px) {
+  .cr-leaderboard-table {
+    font-size: 0.93em;
+    min-width: unset;
+  }
+}
+/* End Leaderboard Styles */
+
 /* --- LOADING OVERLAY/SCREEN --- */
 .cr-loading-overlay {
   position: fixed;

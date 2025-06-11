@@ -7,13 +7,13 @@
 <i> [webpack-dev-server] On Your Network (IPv4): http://172.17.0.2:3000/
 <i> [webpack-dev-server] Content not from webpack is served from './public' directory
 Injecting EditorRootWrapper import: ../.ve/EditorRootWrapper
-asset bundle.js 1.57 MiB [emitted] (name: main)
+asset bundle.js 1.58 MiB [emitted] (name: main)
 asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
-cacheable modules 1.39 MiB
+cacheable modules 1.4 MiB
   modules by path ./node_modules/ 1.24 MiB 31 modules
-  modules by path ./src/ 137 KiB
-    modules by path ./src/*.js 103 KiB 12 modules
+  modules by path ./src/ 149 KiB
+    modules by path ./src/*.js 115 KiB 13 modules
     modules by path ./src/*.css 34 KiB 10 modules
     modules by path ./src/assets/sfx/*.mp3 2 bytes
       ./src/assets/sfx/click.mp3 1 bytes [built] [code generated]
@@ -22,87 +22,24 @@ cacheable modules 1.39 MiB
     modules by path ./.ve/*.js 10.6 KiB 2 modules
     modules by path ./.ve/*.css 2.93 KiB 2 modules
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1971 ms
+webpack 5.99.9 compiled successfully in 2022 ms
 assets by status 1.92 KiB [cached] 1 asset
 assets by path *.js 1.67 MiB
-  asset bundle.js 1.58 MiB [emitted] (name: main)
-  asset main.0e28aa8a00fdcf3a4bbd.hot-update.js 84.9 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.0e28aa8a00fdcf3a4bbd.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.67 MiB = bundle.js 1.58 MiB main.0e28aa8a00fdcf3a4bbd.hot-update.js 84.9 KiB
-cached modules 1.33 MiB [cached] 59 modules
+  asset bundle.js 1.6 MiB [emitted] (name: main)
+  asset main.4f1dc8df472bc1928595.hot-update.js 81.3 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.4f1dc8df472bc1928595.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.67 MiB = bundle.js 1.6 MiB main.4f1dc8df472bc1928595.hot-update.js 81.3 KiB
+cached modules 1.35 MiB [cached] 60 modules
 runtime modules 27.5 KiB 14 modules
-javascript modules 67.6 KiB
-  ./src/ClashRealmsMain.js 54 KiB [built] [code generated]
-  ./src/BattleReplay.js 13.6 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 395 ms
+./src/ClashRealmsMain.js 64.9 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 342 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.42 MiB
-  asset bundle.js 1.41 MiB [emitted] (name: main)
-  asset main.70501f3df26e11059b53.hot-update.js 6.45 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.70501f3df26e11059b53.hot-update.json 498 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.42 MiB = bundle.js 1.41 MiB main.70501f3df26e11059b53.hot-update.js 6.45 KiB
-cached modules 1.27 MiB [cached] 44 modules
+assets by path *.js 1.61 MiB
+  asset bundle.js 1.6 MiB [emitted] (name: main)
+  asset main.4095327b4801ba68aed5.hot-update.js 18.9 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.4095327b4801ba68aed5.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.61 MiB = bundle.js 1.6 MiB main.4095327b4801ba68aed5.hot-update.js 18.9 KiB
+cached modules 1.4 MiB [cached] 60 modules
 runtime modules 27.5 KiB 14 modules
-javascript modules 591 bytes
-  ./src/App.js 552 bytes [code generated]
-  ./src/ClashRealmsMain.js 39 bytes [built] [code generated] [1 error]
-
-ERROR in ./src/ClashRealmsMain.js
-Module build failed (from ./node_modules/babel-loader/lib/index.js):
-SyntaxError: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/ClashRealmsMain.js: Identifier 'BattleReplay' has already been declared. (931:7)
-
-  929 | // --- Other screens & popups ---
-  930 |
-> 931 | import BattleReplay from "./BattleReplay";
-      |        ^
-  932 |
-  933 | function BattleScreen({ onWin, isScreenLoading }) {
-  934 |   // Display a mock battle replay for user engagement
-    at constructor (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:363:19)
-    at JSXParserMixin.raise (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:6609:19)
-    at ScopeHandler.checkRedeclarationInScope (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:1626:19)
-    at ScopeHandler.declareName (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:1592:12)
-    at JSXParserMixin.declareNameFromIdentifier (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:7538:16)
-    at JSXParserMixin.checkIdentifier (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:7534:12)
-    at JSXParserMixin.checkLVal (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:7475:12)
-    at JSXParserMixin.finishImportSpecifier (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14184:10)
-    at JSXParserMixin.parseImportSpecifierLocal (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14181:31)
-    at JSXParserMixin.maybeParseDefaultImportSpecifier (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14288:12)
-    at JSXParserMixin.parseImportSpecifiersAndAfter (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14157:29)
-    at JSXParserMixin.parseImport (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14153:17)
-    at JSXParserMixin.parseStatementContent (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:12795:27)
-    at JSXParserMixin.parseStatementLike (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:12685:17)
-    at JSXParserMixin.parseModuleItem (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:12662:17)
-    at JSXParserMixin.parseBlockOrModuleBlockBody (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:13235:36)
-    at JSXParserMixin.parseBlockBody (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:13228:10)
-    at JSXParserMixin.parseProgram (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:12541:10)
-    at JSXParserMixin.parseTopLevel (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:12531:25)
-    at JSXParserMixin.parse (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14410:10)
-    at parse (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/parser/lib/index.js:14444:38)
-    at parser (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/core/lib/parser/index.js:41:34)
-    at parser.next (<anonymous>)
-    at normalizeFile (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
-    at normalizeFile.next (<anonymous>)
-    at run (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/core/lib/transformation/index.js:22:50)
-    at run.next (<anonymous>)
-    at transform (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/@babel/core/lib/transform.js:22:33)
-    at transform.next (<anonymous>)
-    at step (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/gensync/index.js:261:32)
-    at /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/gensync/index.js:273:13
-    at async.call.result.err.err (/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/node_modules/gensync/index.js:223:11)
- @ ./src/App.js 2:0-48 13:34-49
- @ ./src/index.js 5:0-24 13:32-35
-
-webpack 5.99.9 compiled with 1 error in 62 ms
-assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.76 MiB
-  asset bundle.js 1.58 MiB [emitted] (name: main)
-  asset main.0e67657e1ed2006a64f7.hot-update.js 179 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.0e67657e1ed2006a64f7.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.76 MiB = bundle.js 1.58 MiB main.0e67657e1ed2006a64f7.hot-update.js 179 KiB
-cached modules 1.35 MiB [cached] 59 modules
-runtime modules 27.5 KiB 14 modules
-javascript modules 54.5 KiB
-  ./src/App.js 552 bytes [code generated]
-  ./src/ClashRealmsMain.js 54 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 203 ms
+./node_modules/css-loader/dist/cjs.js!./src/ClashRealmsMain.css 15.7 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 78 ms
