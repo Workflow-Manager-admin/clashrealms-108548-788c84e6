@@ -12,6 +12,7 @@ import LoadingOverlay from "./LoadingOverlay";
 import BattleReplay from "./BattleReplay";
 import Minimap from "./Minimap";
 import FeedbackWidget from "./FeedbackWidget";
+import HelpModal from "./HelpModal";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -125,6 +126,9 @@ function ClashRealmsMain() {
 
   // --- FEEDBACK MODAL ---
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  // --- HELP MODAL ---
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   // --- LOCAL STORAGE: Load resources, buildings, troop upgrades ---
   const [resourceCounts, setResourceCounts] = useState(() =>
@@ -789,7 +793,7 @@ function ClashRealmsMain() {
         >
           <span role="img" aria-label="Settings" style={{fontSize:"1.18em"}}>⚙️</span>
         </button>
-        {/* Help/tutorial launch button */}
+        {/* Help/FAQ Modal launch button */}
         <button
           id="cr-help-tutorial-btn"
           className="cr-btn-accent"
@@ -802,8 +806,12 @@ function ClashRealmsMain() {
             outline: "none",
             border: "2px solid transparent"
           }}
-          aria-label="Show Tutorial"
-          onClick={() => { SoundManager.play("click"); startTutorial(); }}
+          aria-label="Show Help & FAQ"
+          title="Show Help & FAQ"
+          onClick={() => {
+            SoundManager.play("click");
+            setShowHelpModal(true);
+          }}
           tabIndex={0}
           onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
@@ -813,6 +821,8 @@ function ClashRealmsMain() {
       </header>
 
       <main className="cr-main-content" tabIndex={0} role="main" aria-label="Main Game Content">
+        {/* Help/FAQ Modal */}
+        <HelpModal isOpen={showHelpModal} onClose={() => setShowHelpModal(false)} />
         {/* Animated cross-fade transitions between content loads */}
         <div
           style={{
