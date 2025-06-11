@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import "./ClashRealmsMain.css";
 import AnimatedResourceBar from "./ResourceBar";
+import ConfettiOverlay from "./ConfettiOverlay";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -27,6 +28,10 @@ function ClashRealmsMain() {
     gems: 50
   });
 
+  // Confetti state: what event caused celebration?
+  const [confetti, setConfetti] = useState({ show: false, key: 0, message: "" });
+  const confettiNextKey = useRef(1);
+
   // Handler: Animate resource "collection" (mock increment)
   function handleCollectResource(type) {
     setResourceCounts(res => {
@@ -35,11 +40,22 @@ function ClashRealmsMain() {
       if (type === "gold") delta = 8 + Math.floor(Math.random() * 24);
       if (type === "elixir") delta = 7 + Math.floor(Math.random() * 16);
       if (type === "gems") delta = 1 + Math.floor(Math.random() * 2);
+      // If gems collect, treat as level-up-like celebration (for demo)
+      if (type === "gems") {
+        setTimeout(() => {
+          setConfetti({ show: true, key: confettiNextKey.current++, message: "Gems Collected!" });
+        }, 100); // short delay to sync visual
+      }
       return {
         ...res,
         [type]: res[type] + delta
       };
     });
+  }
+
+  // Celebrate for mock major events (building upgrade, battle win, etc)
+  function celebrate(message = "Congratulations!") {
+    setConfetti({ show: true, key: confettiNextKey.current++, message });
   }
 
   // Integration points for core modules (placeholders)
@@ -49,12 +65,20 @@ function ClashRealmsMain() {
       case "base":
         return (
           <VillageView
-            onBuildingClick={() => setPopup("building-upgrade")}
+            // Show pop-up + celebrate effect when upgrading any building
+            onBuildingClick={() => {
+              celebrate("Building Upgraded!");
+              setPopup("building-upgrade");
+            }}
             onTrainTroops={() => setPopup("troop-train")}
+            onCelebrate={celebrate}
           />
         );
       case "attack":
-        return <BattleScreen />;
+        // Battle screen: trigger confetti on (mock) win
+        return (
+          <BattleScreen onWin={() => celebrate("Victory in Battle!")} />
+        );
       case "clan":
         return <ClanScreen />;
       case "shop":
@@ -66,6 +90,13 @@ function ClashRealmsMain() {
 
   return (
     <div className="cr-app-theme">
+      {/* Confetti celebration overlay */}
+      <ConfettiOverlay
+        show={confetti.show}
+        triggerKey={confetti.key}
+        onDone={() => setConfetti({ ...confetti, show: false })}
+      />
+
       <header className="cr-header">
         <span className="cr-logo">🏰 ClashRealms</span>
         <AnimatedResourceBar
@@ -104,7 +135,7 @@ function ClashRealmsMain() {
 
 // --- UI Components (simplified stubs, integration points for feature modules) ---
 
-function VillageView({ onBuildingClick, onTrainTroops }) {
+function VillageView({ onBuildingClick, onTrainTroops, onCelebrate }) {
   // Interactive per-building upgrade progress (frontend-only mock for now)
   // We'll show one as "Upgrading" for demo (could be randomized in real app)
   const initial = [
@@ -114,6 +145,8 @@ function VillageView({ onBuildingClick, onTrainTroops }) {
     { key: "townhall", label: "Town Hall", progress: 0, upgrading: false },
   ];
   const [buildingStates, setBuildingStates] = React.useState(initial);
+  // Celebrate after a full upgrade (upgrade completion detection)
+  const prevProgress = useRef(buildingStates.map(b => b.progress));
 
   // Handler for "upgrade" interactions (mock: start progress bar)
   const handleBuildingClick = idx => {
@@ -124,7 +157,8 @@ function VillageView({ onBuildingClick, onTrainTroops }) {
           : b
       )
     );
-    // If needed, we could also fire a prop or open a popup
+    // integration: fire upgrade effect in parent
+    onBuildingClick && onBuildingClick();
   };
 
   // Animate progress if any building "upgrading"
@@ -155,6 +189,22 @@ function VillageView({ onBuildingClick, onTrainTroops }) {
       if (frame) clearTimeout(frame);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [buildingStates]);
+
+  // Detect when an upgrade completes to flash confetti
+  React.useEffect(() => {
+    buildingStates.forEach((b, idx) => {
+      if (
+        prevProgress.current[idx] < 100 &&
+        b.progress === 100 &&
+        !b.upgrading
+      ) {
+        // Celebrate for demo
+        onCelebrate && onCelebrate(`${b.label} upgraded!`);
+      }
+    });
+    prevProgress.current = buildingStates.map(b => b.progress);
+    // eslint-disable-next-line
   }, [buildingStates]);
 
   return (
@@ -208,17 +258,29 @@ function VillageView({ onBuildingClick, onTrainTroops }) {
   );
 }
 
-function BattleScreen() {
-  // Placeholder for real-time battle UI
+function BattleScreen({ onWin }) {
+  // Mock: Pretend user can "win" a mock battle
+  const [won, setWon] = useState(false);
+
+  function handleWin() {
+    setWon(true);
+    onWin && onWin();
+    setTimeout(() => setWon(false), 1400); // reset button
+  }
+
   return (
     <div className="cr-battle-screen">
       <h2>Battle!</h2>
       <div className="cr-battlefield-placeholder">
         <span className="emoji">⚔️</span>
         <p>Battles will play out here.</p>
-        <button className="cr-btn-disabled" disabled>
-          Deploy Troops (Coming Soon)
-        </button>
+        {!won ? (
+          <button className="cr-btn-accent" style={{minWidth:95}} onClick={handleWin}>
+            Mock Win Battle
+          </button>
+        ) : (
+          <span className="cr-upgrade-progress-label" style={{fontSize:'1.09em',color:'#3DBB3D'}}>Victory!</span>
+        )}
       </div>
     </div>
   );

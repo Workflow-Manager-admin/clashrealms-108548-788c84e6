@@ -11,9 +11,9 @@ asset bundle.js 1.43 MiB [emitted] (name: main)
 asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
 modules by path ./node_modules/ 1.24 MiB 31 modules
-modules by path ./src/ 36.3 KiB
+modules by path ./src/ 36.6 KiB
   modules by path ./src/*.css 17.7 KiB 6 modules
-  modules by path ./src/*.js 18.6 KiB
+  modules by path ./src/*.js 18.9 KiB
     ./src/index.js 530 bytes [built] [code generated]
     + 3 modules
 modules by path ./.ve/ 15.1 KiB
@@ -22,14 +22,16 @@ modules by path ./.ve/ 15.1 KiB
     ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
   ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1773 ms
+webpack 5.99.9 compiled successfully in 1735 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.44 MiB
-  asset bundle.js 1.43 MiB [emitted] (name: main)
-  asset main.11529c9e67c1cfe0605e.hot-update.js 6.56 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.11529c9e67c1cfe0605e.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.44 MiB = bundle.js 1.43 MiB main.11529c9e67c1cfe0605e.hot-update.js 6.56 KiB
-cached modules 1.29 MiB [cached] 45 modules
+assets by path *.js 1.46 MiB
+  asset bundle.js 1.44 MiB [emitted] (name: main)
+  asset main.60f9dc4b3bef3bf16571.hot-update.js 27.1 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.60f9dc4b3bef3bf16571.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.46 MiB = bundle.js 1.44 MiB main.60f9dc4b3bef3bf16571.hot-update.js 27.1 KiB
+cached modules 1.28 MiB [cached] 45 modules
 runtime modules 27.5 KiB 14 modules
-./src/ResourceBar.js 3.95 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 118 ms
+javascript modules 19.4 KiB
+  ./src/ClashRealmsMain.js 16.5 KiB [built] [code generated]
+  ./src/ConfettiOverlay.js 2.86 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 220 ms
