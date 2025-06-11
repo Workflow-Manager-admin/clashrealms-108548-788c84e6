@@ -481,6 +481,31 @@ function ClashRealmsMain() {
     }
   };
 
+  // Simple placeholder components to fix build errors for undefined views
+  function ClanScreen({ isScreenLoading }) {
+    return (
+      <div className="cr-clan-screen" role="region" aria-label="Clan Screen" tabIndex={0} style={{ outline: "none" }}>
+        <h2>Clan</h2>
+        <div style={{ margin: "28px 0", color: "#756042" }}>
+          Clan features coming soon!
+        </div>
+        <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+      </div>
+    );
+  }
+
+  function ShopScreen({ isScreenLoading }) {
+    return (
+      <div className="cr-shop-screen" role="region" aria-label="Shop Screen" tabIndex={0} style={{ outline: "none" }}>
+        <h2>Shop</h2>
+        <div style={{ margin: "28px 0", color: "#756042" }}>
+          Shop features coming soon!
+        </div>
+        <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+      </div>
+    );
+  }
+
   // ---- TUTORIAL steps configuration ----
   const tutorialSteps = [
     {
