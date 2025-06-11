@@ -1,6 +1,6 @@
 :root {
-  --base-light: #00ffff;
-  --base-dark: #00008b;
+  --base-light: #3DBB3D; /* accent green */
+  --base-dark: #114c1a;  /* dark green shade */
   --text-color: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
@@ -44,7 +44,7 @@ body {
 }
 
 .logo-symbol {
-  color: var(--base-light);
+  color: var(--base-light); /* accent green */
 }
 
 .container {
@@ -99,7 +99,7 @@ body {
 }
 
 .btn:hover {
-  background-color: #7691ff;
+  background-color: #228f34; /* slightly darker green for hover */
 }
 
 .btn-large {

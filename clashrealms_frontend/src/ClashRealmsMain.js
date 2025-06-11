@@ -577,7 +577,7 @@ function ClashRealmsMain() {
           alt="avatar"
           style={{
             width: 36, height: 36, borderRadius: "50%",
-            objectFit: "cover", border: "2px solid #3D7BBB", background: "#fff", marginRight: 6
+            objectFit: "cover", border: "2px solid #3DBB3D", background: "#fff", marginRight: 6
           }}
           draggable={false}
         />
@@ -627,8 +627,8 @@ function ClashRealmsMain() {
           setShowProfileModal(true);
         }}
         tabIndex={0}
-        onFocus={e => (e.currentTarget.style.border = "2px solid #235dbb")}
-        onBlur={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
+        onFocus={e => (e.currentTarget.style.border = "2px solid #289c3d")}
+        onBlur={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
         title="Edit your profile/appearance"
       >
         {avatarNode}
@@ -719,7 +719,7 @@ function ClashRealmsMain() {
             onClick={() => undoStack.length > 0 && doUndo()}
             disabled={undoStack.length === 0}
             tabIndex={0}
-            onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
             onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
             title="Undo (Ctrl+Z)"
           >↩️ Undo</button>
@@ -738,7 +738,7 @@ function ClashRealmsMain() {
             onClick={() => redoStack.length > 0 && doRedo()}
             disabled={redoStack.length === 0}
             tabIndex={0}
-            onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
             onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
             title="Redo (Ctrl+Y)"
           >Redo ↪️</button>
@@ -1050,7 +1050,7 @@ function VillageView({
                 aria-disabled={!canUpgrade}
                 role="button"
                 style={{ outline: "none", border: "2px solid transparent" }}
-                onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
+                onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
                 onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
                 onKeyDown={e => {
                   if (["Enter", " "].includes(e.key)) { e.preventDefault(); triggerBuildingUpgrade(idx); }
@@ -1289,7 +1289,7 @@ function BottomNav({ navItems, active, onChange }) {
           role="tab"
           tabIndex={0}
           style={{ outline: "none", border: "2px solid transparent" }}
-          onFocus={e => (e.currentTarget.style.border = "2px solid #F5C542")}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
           onKeyDown={e => {
             if (["Enter", " "].includes(e.key)) { e.preventDefault(); onChange(item.key); }
