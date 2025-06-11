@@ -41,6 +41,7 @@ module.exports = (env = {}) => ({
     static: './public',
     hot: true,
     port: 3000,
+    allowedHosts: 'all'
   },
   plugins: [
     new HtmlWebpackPlugin({

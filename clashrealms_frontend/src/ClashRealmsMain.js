@@ -690,7 +690,7 @@ function ClashRealmsMain() {
           e.currentTarget.style.boxShadow = "none";
         }}
       >
-        <span className="cr-logo" aria-label="ClashRealms Home">🏰 ClashRealms</span>
+        <span className="cr-logo" aria-label="ClashReal Home">🏰 ClashReal</span>
         <AnimatedResourceBar
           resources={resourceCounts}
           onCollect={handleCollectResource}
