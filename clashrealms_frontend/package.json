@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "cross-env EDIT_MODE=true webpack serve --config .ve/webpack.config.js --mode development",
-    "build": "cross-env PUBLIC_URL=\"\" react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

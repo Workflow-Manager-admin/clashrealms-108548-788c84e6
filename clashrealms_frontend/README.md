@@ -21,6 +21,9 @@ This project’s `package.json` includes a `babel` section with a plugin:
 
 This plugin enables **visual editing functionality** in supported tools.
 
+**Note on Public URL:**
+In React HTML templates and configs, always use `%PUBLIC_URL%` (with percent signs) for static references, and `process.env.PUBLIC_URL` in JS.
+
 **Warning for AI code agents and contributors:**
 **DO NOT** remove or modify this section - it is ESSENTIAL for proper operation.
 Removing it will break editor integration and visual editing features.
