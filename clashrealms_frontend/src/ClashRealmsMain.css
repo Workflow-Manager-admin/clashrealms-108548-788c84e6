@@ -57,6 +57,44 @@
 .cr-elixir { color: #bc56f2; }
 .cr-gems { color: var(--cr-accent); }
 
+/* --- RESOURCE BAR ANIMATIONS --- */
+.cr-resource-bump {
+  animation: cr-resource-bump 0.26s cubic-bezier(.46,2.2,.32,.94);
+}
+@keyframes cr-resource-bump {
+  0%   { transform: scale(1); }
+  19%  { transform: scale(1.21); }
+  47%  { transform: scale(0.96); }
+  64%  { transform: scale(1.07); }
+  100% { transform: scale(1);}
+}
+.cr-resource-collect-btn {
+  font-size: 0.88em;
+  color: var(--cr-accent);
+  position: absolute;
+  right: -1.1em;
+  top: 2px;
+  opacity: 0.75;
+  font-weight: 700;
+  background: #fffbea;
+  border-radius: 50%;
+  padding: 0 7px 0 7px;
+  cursor: pointer;
+  border: 1.5px solid var(--cr-accent);
+  transition: background .12s, transform .13s;
+  box-shadow: 0 2px 4px #c6ecb128;
+}
+.cr-resource-bump .cr-resource-collect-btn {
+  background: #ecfbe7;
+  transform: scale(1.2)!important;
+  font-size: 1.06em;
+  border-color: #2bbc2b;
+}
+.cr-resource-collect-btn:active {
+  background: #b3ffb6;
+  border-color: #1e8d1e;
+}
+
 /* Main section */
 .cr-main-content {
   flex: 1 1 0;

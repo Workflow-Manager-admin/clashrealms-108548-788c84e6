@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import "./ClashRealmsMain.css";
+import AnimatedResourceBar from "./ResourceBar";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -9,12 +10,37 @@ const NAV_ITEMS = [
   { key: "shop", label: "Shop" },
 ];
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * ClashRealmsMain: Main game container.
+ */
 function ClashRealmsMain() {
   // Navigation state: what screen is active?
   const [activeScreen, setActiveScreen] = useState("base");
   // Control popups
   const [popup, setPopup] = useState(null);
+
+  // Resource state for animated resource bar
+  const [resourceCounts, setResourceCounts] = useState({
+    gold: 1000,
+    elixir: 750,
+    gems: 50
+  });
+
+  // Handler: Animate resource "collection" (mock increment)
+  function handleCollectResource(type) {
+    setResourceCounts(res => {
+      // Choose a pseudo-random collect amount for demo
+      let delta = 0;
+      if (type === "gold") delta = 8 + Math.floor(Math.random() * 24);
+      if (type === "elixir") delta = 7 + Math.floor(Math.random() * 16);
+      if (type === "gems") delta = 1 + Math.floor(Math.random() * 2);
+      return {
+        ...res,
+        [type]: res[type] + delta
+      };
+    });
+  }
 
   // Integration points for core modules (placeholders)
   // In real implementations, these would import and render feature modules.
@@ -42,7 +68,10 @@ function ClashRealmsMain() {
     <div className="cr-app-theme">
       <header className="cr-header">
         <span className="cr-logo">🏰 ClashRealms</span>
-        <ResourceBar />
+        <AnimatedResourceBar
+          resources={resourceCounts}
+          onCollect={handleCollectResource}
+        />
       </header>
 
       <main className="cr-main-content">
@@ -273,17 +302,7 @@ function BottomNav({ navItems, active, onChange }) {
   );
 }
 
-// --- Resource Bar Consistent With Theme ---
-function ResourceBar() {
-  // Placeholder: In production, connect to resource/management state
-  return (
-    <div className="cr-resources-bar">
-      <span className="cr-gold">⛃ 1000</span>
-      <span className="cr-elixir">✦ 750</span>
-      <span className="cr-gems">💎 50</span>
-    </div>
-  );
-}
+
 
 // --- Misc --- 
 function Hint({ children }) {
