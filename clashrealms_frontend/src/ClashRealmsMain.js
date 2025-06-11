@@ -2,6 +2,8 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import "./ClashRealmsMain.css";
 import AnimatedResourceBar from "./ResourceBar";
 import ConfettiOverlay from "./ConfettiOverlay";
+import TutorialOverlay from "./TutorialOverlay";
+import "./TutorialOverlay.css";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -75,6 +77,9 @@ function ClashRealmsMain() {
   // Navigation state: what screen is active?
   const [activeScreen, setActiveScreen] = useState("base");
 
+  // --- TUTORIAL state ---
+  const [tutorialStep, setTutorialStep] = useState(null);
+
   // Control popups and pass context for popups
   const [popup, setPopup] = useState(null);
   const [popupData, setPopupData] = useState({});
@@ -84,6 +89,14 @@ function ClashRealmsMain() {
     loadLocal("cr_resources", RESOURCE_DEFAULTS)
   );
   const [persistLoaded, setPersistLoaded] = useState(false);
+
+  // --- Show tutorial on first launch ---
+  useEffect(() => {
+    if (window.localStorage) {
+      const seenGuide = window.localStorage.getItem("cr_seen_tutorial");
+      if (!seenGuide) setTutorialStep(0); // show on first launch
+    }
+  }, []);
 
   // Buildings state with upgrades and cooldowns
   const [buildingStates, setBuildingStates] = useState(() =>
@@ -300,6 +313,62 @@ function ClashRealmsMain() {
     }
   };
 
+  // ---- TUTORIAL steps configuration ----
+  const tutorialSteps = [
+    {
+      title: "Welcome to ClashRealms!",
+      description: "In this game, you build and upgrade your village, train troops, and battle for glory. Let's explore the basics together.",
+      selector: ".cr-header", // highlight top bar
+      position: "below"
+    },
+    {
+      title: "Your Resources",
+      description: "This bar shows your Gold, Elixir, and Gems. Tap + to collect more (mock). Use resources to build and upgrade.",
+      selector: ".cr-resources-bar",
+      position: "below"
+    },
+    {
+      title: "Navigation Bar",
+      description: "Use this menu to switch between your Base, Attack, Clan, and Shop screens. Let's start at your Base!",
+      selector: ".cr-bottom-nav",
+      position: "above"
+    },
+    {
+      title: "Upgrading Buildings",
+      description: "Click building cards to upgrade! Upgrading improves production and defense. Try Town Hall, Gold Mine, or Cannon.",
+      selector: ".cr-buildings-grid",
+      position: "below"
+    },
+    {
+      title: "Troop Training",
+      description: "Tap Army Camp and use Train/Upgrade to boost your troops. Higher level troops help you win battles.",
+      selector: ".cr-building-armycamp",
+      position: "right"
+    },
+    {
+      title: "Cooldown Timers",
+      description: "When you upgrade, a progress bar and timer will appear. When full, your building or troop reaches a new level!",
+      selector: ".cr-upgrade-progress-bar",
+      position: "below"
+    },
+    {
+      title: "Need Help Later?",
+      description: "You can view this guide anytime by tapping the '?' help button in the top bar.",
+      selector: "#cr-help-tutorial-btn",
+      position: "right"
+    }
+  ];
+
+  // Manual tutorial trigger and finish logic
+  function startTutorial() {
+    setTutorialStep(0);
+  }
+  function closeTutorial() {
+    setTutorialStep(null);
+    if (window.localStorage)
+      window.localStorage.setItem("cr_seen_tutorial", "true");
+  }
+
   return (
     <div className="cr-app-theme">
       {/* Confetti celebration overlay */}
@@ -309,15 +378,26 @@ function ClashRealmsMain() {
         onDone={() => setConfetti({ ...confetti, show: false })}
       />
 
-      <header className="cr-header">
+      <header className="cr-header" tabIndex={-1}>
         <span className="cr-logo">🏰 ClashRealms</span>
         <AnimatedResourceBar
           resources={resourceCounts}
           onCollect={handleCollectResource}
         />
+        {/* Help/tutorial launch button */}
+        <button
+          id="cr-help-tutorial-btn"
+          className="cr-btn-accent"
+          style={{ marginLeft: 12, fontSize: 18, padding: "5px 13px", borderRadius: 12, alignSelf: "center" }}
+          aria-label="Show Tutorial"
+          onClick={startTutorial}
+          tabIndex={0}
+        >
+          ?
+        </button>
       </header>
 
-      <main className="cr-main-content">
+      <main className="cr-main-content" tabIndex={-1}>
         {renderScreen()}
       </main>
 
@@ -343,9 +423,24 @@ function ClashRealmsMain() {
           />
         </Popup>
       )}
+
+      {/* Step-by-Step Guided Tutorial Overlay */}
+      {tutorialStep !== null && (
+        <TutorialOverlay
+          steps={tutorialSteps}
+          currentStep={tutorialStep}
+          onNext={() => setTutorialStep(s => Math.min(s + 1, tutorialSteps.length - 1))}
+          onPrev={() => setTutorialStep(s => Math.max(s - 1, 0))}
+          onClose={closeTutorial}
+        />
+      )}
     </div>
   );
 }
+
+/**
+ * NOTE: If you are using PUBLIC_URL in your code, use process.env.PUBLIC_URL instead.
+ */
 
 // --- UI Components ---
 
@@ -377,7 +472,7 @@ function VillageView({
 
   return (
     <div className="cr-village-view">
-      <div className="cr-buildings-grid">
+      <div className="cr-buildings-grid" tabIndex={-1}>
         {buildingStates.map((b, idx) => {
           // Info for upgrade cost/time for this building's current level
           const ug = BUILDING_UPGRADE_INFO[b.key];
@@ -400,6 +495,7 @@ function VillageView({
                 onClick={onTrainTroops}
                 tabIndex={0}
                 aria-label="Train Troops"
+                data-tutorial="armycamp"
               >
                 <span>
                   {b.label}{b.level && b.level > 1 ? ` Lv.${b.level}` : ""}
@@ -434,6 +530,7 @@ function VillageView({
                   )
                 }
                 type="button"
+                data-tutorial={b.key}
               >
                 <span>
                   {b.label}{b.level && b.level > 1 ? ` Lv.${b.level}` : ""}
@@ -445,7 +542,7 @@ function VillageView({
                   </span>
                   {(b.upgrading || b.cooldown) && (
                     <span className="cr-upgrade-progress-ctr">
-                      <span className="cr-upgrade-progress-bar">
+                      <span className="cr-upgrade-progress-bar" data-tutorial="progress-bar">
                         <span
                           className="cr-upgrade-progress-bar-inner"
                           style={{ width: `${b.progress ?? 0}%` }}

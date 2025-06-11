@@ -1,0 +1,70 @@
+.cr-tutorial-overlay {
+  position: fixed;
+  z-index: 10010;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: auto;
+  width: 100vw;
+  height: 100vh;
+}
+.cr-tutorial-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(65, 49, 14, 0.54);
+  z-index: 10009;
+  pointer-events: auto;
+}
+.cr-tutorial-highlight {
+  position: absolute;
+  border: 3px solid #F5C542;
+  border-radius: 15px;
+  box-shadow: 0 0 24px 5px #f5c542aa, 0 1px 9px #1a1a1a44;
+  background: rgba(255,255,240,0.12);
+  pointer-events: none;
+  transition: all 0.29s;
+  z-index: 10011;
+}
+.cr-tutorial-tip {
+  position: absolute;
+  min-width: 224px;
+  max-width: 380px;
+  background: #fff9e7;
+  border-radius: 15px;
+  box-shadow: 0 4px 24px #e7b82324;
+  border: 2.5px solid #F5C542;
+  padding: 20px 20px 14px 20px;
+  z-index: 10013;
+  font-family: inherit;
+  top: 16vh;
+  left: 50vw;
+  transform: translate(-50%, 0);
+}
+.cr-tutorial-title {
+  font-size: 1.22em;
+  color: #4A2E0B;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+.cr-tutorial-desc {
+  color: #756042;
+  font-size: 1em;
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+.cr-tutorial-controls {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+@media (max-width: 520px) {
+  .cr-tutorial-tip {
+    max-width: 92vw;
+    min-width: 0;
+    left: 6vw;
+    right: 6vw;
+    transform: none;
+    font-size: 0.97em;
+    padding: 14px 4vw 10px 4vw;
+  }
+}
