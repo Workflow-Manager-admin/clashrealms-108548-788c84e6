@@ -95,6 +95,8 @@ const initialTroops = [
 /**
  * PUBLIC_INTERFACE
  * ClashRealmsMain: Main game container.
+ *
+ * Undo/Redo support: We add custom undo/redo command stacks to allow upgrades and troop training to be reversed/restored instantly in the UI.
  */
 function ClashRealmsMain() {
   // Navigation state: what screen is active?
@@ -125,6 +127,11 @@ function ClashRealmsMain() {
     loadLocal("cr_resources", RESOURCE_DEFAULTS)
   );
   const [persistLoaded, setPersistLoaded] = useState(false);
+
+  // --- Undo/Redo Stacks ---
+  // Stack holds { resourceCounts, buildingStates, troopUpgrades } objects
+  const [undoStack, setUndoStack] = useState([]);
+  const [redoStack, setRedoStack] = useState([]);
 
   // --- Show tutorial on first launch or show avatar/name selection popup if profile missing
   useEffect(() => {
@@ -183,10 +190,63 @@ function ClashRealmsMain() {
   const [confetti, setConfetti] = useState({ show: false, key: 0, message: "" });
   const confettiNextKey = useRef(1);
 
+  // --- Undo/Redo helpers ---
+  function pushUndo(state) {
+    setUndoStack((stack) => [...stack, state]);
+    setRedoStack([]); // Clear redo on new action
+  }
+  function doUndo() {
+    setUndoStack((stack) => {
+      if (stack.length === 0) return stack;
+      setRedoStack((redo) => [
+        ...redo,
+        {
+          resourceCounts,
+          buildingStates,
+          troopUpgrades,
+        },
+      ]);
+      const prev = stack[stack.length - 1];
+      // Restore previous state atomically
+      setResourceCounts(prev.resourceCounts);
+      setBuildingStates(prev.buildingStates);
+      setTroopUpgrades(prev.troopUpgrades);
+      if (showSnackbar)
+        showSnackbar({
+          message: "Undid last action.",
+          type: "info",
+        });
+      return stack.slice(0, -1);
+    });
+  }
+  function doRedo() {
+    setRedoStack((redo) => {
+      if (redo.length === 0) return redo;
+      setUndoStack((stack) => [
+        ...stack,
+        {
+          resourceCounts,
+          buildingStates,
+          troopUpgrades,
+        },
+      ]);
+      const next = redo[redo.length - 1];
+      setResourceCounts(next.resourceCounts);
+      setBuildingStates(next.buildingStates);
+      setTroopUpgrades(next.troopUpgrades);
+      if (showSnackbar)
+        showSnackbar({
+          message: "Redid action.",
+          type: "info",
+        });
+      return redo.slice(0, -1);
+    });
+  }
+
   // Handler: Animate resource "collection" (mock increment)
   function handleCollectResource(type) {
     SoundManager.play("click");
-    setResourceCounts(res => {
+    setResourceCounts((res) => {
       let delta = 0;
       if (type === "gold") delta = 8 + Math.floor(Math.random() * 24);
       if (type === "elixir") delta = 7 + Math.floor(Math.random() * 16);
@@ -216,9 +276,16 @@ function ClashRealmsMain() {
     showSnackbar && showSnackbar({ message, type: "success" });
   }
 
-  // --- Upgrade simulation logic for buildings ---
+  // --- Upgrade simulation logic for buildings, with undo/redo ---
   function triggerBuildingUpgrade(idx) {
-    setBuildingStates(list => {
+    // Save old state onto undoStack
+    pushUndo({
+      resourceCounts,
+      buildingStates: JSON.parse(JSON.stringify(buildingStates)),
+      troopUpgrades: JSON.parse(JSON.stringify(troopUpgrades)),
+    });
+
+    setBuildingStates((list) => {
       return list.map((b, i) => {
         if (i !== idx) return b;
         if (b.upgrading || b.cooldown) return b;
@@ -230,43 +297,52 @@ function ClashRealmsMain() {
 
         // Only spend if resource is available
         let allowed = true;
-        setResourceCounts(res => {
+        setResourceCounts((res) => {
           if (baseGold > 0 && res.gold < baseGold) allowed = false;
           if (baseElixir > 0 && res.elixir < baseElixir) allowed = false;
           if (!allowed) return res;
           return {
             ...res,
             gold: Math.max(0, res.gold - (baseGold || 0)),
-            elixir: Math.max(0, res.elixir - (baseElixir || 0))
+            elixir: Math.max(0, res.elixir - (baseElixir || 0)),
           };
         });
         if (!allowed) {
-          showSnackbar && showSnackbar({
-            message: "Not enough resources to upgrade!",
-            type: "error"
-          });
+          showSnackbar &&
+            showSnackbar({
+              message: "Not enough resources to upgrade!",
+              type: "error",
+            });
+          // Remove PUSH if not allowed (revert top of stack)
+          setUndoStack((stack) => stack.slice(0, -1));
           return b;
         }
         // Set upgrading flag and cooldown
         showSnackbar &&
           showSnackbar({
             message: `Upgrading ${b.label}...`,
-            type: "info"
+            type: "info",
           });
         return {
           ...b,
           upgrading: true,
           progress: 0,
           cooldown: baseTime,
-          finish: Date.now() + baseTime * 1000
+          finish: Date.now() + baseTime * 1000,
         };
       });
     });
   }
 
-  // Troop upgrade handler
+  // Troop upgrade handler for undo/redo
   function triggerTroopUpgrade(idx) {
-    setTroopUpgrades(list => {
+    pushUndo({
+      resourceCounts,
+      buildingStates: JSON.parse(JSON.stringify(buildingStates)),
+      troopUpgrades: JSON.parse(JSON.stringify(troopUpgrades)),
+    });
+
+    setTroopUpgrades((list) => {
       return list.map((t, i) => {
         if (i !== idx) return t;
         if (t.upgrading || t.cooldown) return t;
@@ -277,26 +353,27 @@ function ClashRealmsMain() {
 
         // Only spend if resource is available
         let allowed = true;
-        setResourceCounts(res => {
+        setResourceCounts((res) => {
           if (res.elixir < baseElixir) allowed = false;
           if (!allowed) return res;
           return {
             ...res,
-            elixir: Math.max(0, res.elixir - baseElixir)
+            elixir: Math.max(0, res.elixir - baseElixir),
           };
         });
         if (!allowed) {
           showSnackbar &&
             showSnackbar({
               message: "Not enough elixir to upgrade troop!",
-              type: "error"
+              type: "error",
             });
+          setUndoStack((stack) => stack.slice(0, -1));
           return t;
         }
         showSnackbar &&
           showSnackbar({
             message: `Upgrading ${t.label}...`,
-            type: "info"
+            type: "info",
           });
         SoundManager.play("upgrade");
         // Set upgrading flag and cooldown
@@ -305,7 +382,7 @@ function ClashRealmsMain() {
           upgrading: true,
           progress: 0,
           cooldown: baseTime,
-          finish: Date.now() + baseTime * 1000
+          finish: Date.now() + baseTime * 1000,
         };
       });
     });
@@ -540,6 +617,22 @@ function ClashRealmsMain() {
     );
   }
 
+  // Keyboard shortcuts for undo/redo
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        if (undoStack.length > 0) doUndo();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        if (redoStack.length > 0) doRedo();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [undoStack, redoStack]); // Track stack lengths
+
   return (
     <div className="cr-app-theme">
       {/* Confetti celebration overlay */}
@@ -570,6 +663,55 @@ function ClashRealmsMain() {
           resources={resourceCounts}
           onCollect={handleCollectResource}
         />
+
+        {/* Undo/Redo Buttons */}
+        <div style={{
+          display: "inline-flex",
+          alignItems: "center",
+          marginLeft: 9,
+          gap: 3
+        }}>
+          <button
+            className="cr-btn-accent"
+            style={{
+              fontSize: 16,
+              padding: "5px 10px",
+              borderRadius: 8,
+              outline: "none",
+              border: "2px solid transparent",
+              opacity: undoStack.length === 0 ? 0.5 : 1,
+              cursor: undoStack.length === 0 ? "not-allowed" : "pointer",
+              marginRight: 0
+            }}
+            aria-label="Undo last action"
+            onClick={() => undoStack.length > 0 && doUndo()}
+            disabled={undoStack.length === 0}
+            tabIndex={0}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+            title="Undo (Ctrl+Z)"
+          >↩️ Undo</button>
+          <button
+            className="cr-btn-accent"
+            style={{
+              fontSize: 16,
+              padding: "5px 10px",
+              borderRadius: 8,
+              outline: "none",
+              border: "2px solid transparent",
+              opacity: redoStack.length === 0 ? 0.5 : 1,
+              cursor: redoStack.length === 0 ? "not-allowed" : "pointer"
+            }}
+            aria-label="Redo last undone action"
+            onClick={() => redoStack.length > 0 && doRedo()}
+            disabled={redoStack.length === 0}
+            tabIndex={0}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+            title="Redo (Ctrl+Y)"
+          >Redo ↪️</button>
+        </div>
+
         {renderProfileButton()}
         {/* Settings Button */}
         <button
@@ -701,13 +843,7 @@ function ClashRealmsMain() {
   );
 }
 
-/**
- * NOTE: If you are using PUBLIC_URL in your code, use process.env.PUBLIC_URL instead.
- * 
- * (Build Fix: Scan and ensure NO code or config references PUBLIC_URL as a raw variable)
- */
-// [Build Fix for PUBLIC_URL]
-// If any usage such as src={PUBLIC_URL + '/...'} exists, change it to src={process.env.PUBLIC_URL + '/...'}
+
 
 
 
