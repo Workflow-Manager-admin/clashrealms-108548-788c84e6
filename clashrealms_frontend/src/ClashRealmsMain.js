@@ -10,6 +10,7 @@ import SettingsPanel from "./SettingsPanel";
 import UserProfileModal from "./UserProfileModal";
 import LoadingOverlay from "./LoadingOverlay";
 import BattleReplay from "./BattleReplay";
+import Minimap from "./Minimap";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -708,7 +709,7 @@ function ClashRealmsMain() {
 // [Build Fix for PUBLIC_URL]
 // If any usage such as src={PUBLIC_URL + '/...'} exists, change it to src={process.env.PUBLIC_URL + '/...'}
 
-import Minimap from "./Minimap";
+
 
 function VillageView({
   buildingStates,
@@ -1183,22 +1184,292 @@ function ClanScreen({ isScreenLoading }) {
   );
 }
 
+/**
+ * PUBLIC_INTERFACE
+ * ShopScreen: Themed mobile-friendly shop UI with mock offers, gem packs, and confirmation dialogs.
+ */
 function ShopScreen({ isScreenLoading }) {
+  const [confirmation, setConfirmation] = React.useState(null); // { offer }
+  const [purchased, setPurchased] = React.useState(null);
+  const [preview, setPreview] = React.useState(null);
+
+  // Dummy shop offers (could expand for wider realism)
+  const offers = [
+    {
+      id: "gems_small",
+      name: "Small Gem Pack",
+      desc: "60 Gems",
+      price: "$0.99",
+      gems: 60,
+      icon: "💎",
+      bonus: null,
+      highlight: false
+    },
+    {
+      id: "gems_medium",
+      name: "Medium Gem Pack",
+      desc: "250 Gems +10% Bonus",
+      price: "$3.99",
+      gems: 250,
+      icon: "💎",
+      bonus: "+25 Bonus!",
+      highlight: false
+    },
+    {
+      id: "gems_large",
+      name: "Large Gem Chest",
+      desc: "800 Gems +28% Bonus",
+      price: "$9.99",
+      gems: 800,
+      icon: "💼",
+      bonus: "+175 Bonus!",
+      highlight: true
+    },
+    {
+      id: "builder",
+      name: "Builder Boost",
+      desc: "Upgrade Time -50% (1d)",
+      price: "$2.29",
+      gems: null,
+      icon: "⏳",
+      bonus: null,
+      highlight: false
+    },
+    {
+      id: "special_skin",
+      name: "Mystic Tower Skin",
+      desc: "Exclusive building style",
+      price: "$1.49",
+      gems: null,
+      icon: "🏰",
+      bonus: "Limited!",
+      highlight: false
+    }
+  ];
+
+  // Handler for clicking an offer (preview/confirm)
+  function handleOfferClick(offer) {
+    setPreview(offer);
+  }
+
+  // Handler for confirming purchase (mock/virtual)
+  function handlePurchase(offer) {
+    setConfirmation(null);
+    setPreview(null);
+    setPurchased(offer);
+    setTimeout(() => setPurchased(null), 1600);
+  }
+
+  // UI for each offer card
+  function OfferCard({ offer }) {
+    return (
+      <div
+        className="shop-offer-card"
+        tabIndex={0}
+        aria-label={`Buy ${offer.name}`}
+        style={{
+          background: offer.highlight
+            ? "linear-gradient(100deg, #fffbe2 80%, #ffe9a4 100%)"
+            : "#fffcea",
+          border:
+            offer.highlight
+              ? "2.4px solid #3DBB3D"
+              : "2px solid #e0b742",
+          boxShadow: offer.highlight
+            ? "0 2px 13px #54e24219, 0 0 7px #3DBB3D22"
+            : "0 2px 13px #dac44113",
+          borderRadius: 17,
+          padding: "18px 13px 14px 13px",
+          marginBottom: 14,
+          marginTop: offer.highlight ? 9 : 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 15,
+          position: "relative",
+          outline: "none",
+          cursor: "pointer",
+          minHeight: 70,
+          transition: "border .17s, box-shadow .13s",
+        }}
+        onClick={() => handleOfferClick(offer)}
+        onKeyDown={e => { if (e.key === "Enter" || e.key === " ") handleOfferClick(offer); }}
+        onFocus={e => (e.currentTarget.style.border = "2.4px solid #3DBB3D")}
+        onBlur={e => (e.currentTarget.style.border = offer.highlight ? "2.4px solid #3DBB3D" : "2px solid #e0b742")}
+      >
+        <span
+          style={{
+            fontSize: "2.17em",
+            background: "#fff",
+            borderRadius: "50%",
+            width: 48,
+            height: 48,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "2.4px solid #F5C542",
+            marginRight: 2,
+            boxShadow: offer.highlight ? "0 0 7px #3DBB3D66" : undefined,
+          }}
+          aria-hidden="true"
+        >
+          {offer.icon}
+        </span>
+        <div style={{ flex: 1, textAlign: "left" }}>
+          <div style={{ fontWeight: 700, color: "#4A2E0B", fontSize: "1.09em" }}>{offer.name}</div>
+          <div style={{ fontSize: "0.98em", color: "#756042" }}>{offer.desc}</div>
+          {offer.bonus && <div style={{ color: "#3DBB3D", fontSize: "0.96em", fontWeight: 600 }}>{offer.bonus}</div>}
+        </div>
+        <div style={{ fontSize: "1.1em", fontWeight: 700, color: "#b4951d", marginLeft: 5 }}>
+          {offer.price}
+        </div>
+        {offer.highlight && (
+          <span
+            style={{
+              position: "absolute",
+              right: 7,
+              top: -13,
+              fontSize: "0.99em",
+              color: "#fff",
+              background: "#3DBB3D",
+              borderRadius: 12,
+              padding: "1px 8px",
+              fontWeight: 700,
+              letterSpacing: "0.1px",
+              boxShadow: "0 2px 8px #3DBB3D22"
+            }}
+          >Most Popular</span>
+        )}
+      </div>
+    );
+  }
+
+  // Preview and confirmation popup
+  function ShopModal({ offer, onClose, onConfirm }) {
+    return (
+      <div className="cr-popup-overlay" role="dialog" aria-modal="true" aria-label="Offer Preview / Purchase" tabIndex={-1}>
+        <div className="cr-popup-card" style={{minWidth:300, maxWidth: 360, textAlign: "center"}}>
+          <div className="cr-popup-header">
+            <span>Confirm Purchase</span>
+            <button className="cr-popup-close"
+              aria-label="Close"
+              tabIndex={0}
+              onClick={onClose}
+              style={{marginLeft:7}}
+              onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+              onBlur={e => (e.currentTarget.style.border = "none")}
+              onKeyDown={e => ((e.key === "Enter" || e.key === " ") && onClose())}>
+              ×
+            </button>
+          </div>
+          <div style={{margin:"13px auto"}}>
+            <span style={{
+              fontSize: "2.6em",
+              background: "#fff",
+              borderRadius: "50%",
+              width: 64,
+              height: 64,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "2.5px solid #F5C542",
+              margin: "0 0 7px 0"
+            }}>{offer.icon}</span>
+            <div style={{fontWeight:800, fontSize:"1.19em", marginTop:6}}>{offer.name}</div>
+            <div style={{color:"#837031", fontSize:"1em", marginBottom:3}}>{offer.desc}</div>
+            {offer.bonus && <div style={{ color:"#3DBB3D", fontWeight:700, fontSize:"0.98em" }}>{offer.bonus}</div>}
+          </div>
+          <div style={{ marginTop: 7, fontWeight: 700, fontSize:"1.04em" }}>Price: <span style={{color:"#b38d34"}}>{offer.price}</span></div>
+          <button className="cr-btn-accent"
+            style={{
+              padding: "9px 34px",
+              fontSize: "1.11em",
+              fontWeight: 700,
+              margin: "10px auto 0 auto"
+            }}
+            onClick={() => onConfirm(offer)}
+            tabIndex={0}
+            aria-label={`Confirm purchase for ${offer.name}`}
+          >
+            Buy Now (Demo)
+          </button>
+          <div className="cr-hint" style={{marginTop:7, color:"#827151", fontSize:"0.96em"}}>
+            Purchases are for demo only. No real money required.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // For mock "purchased" state effect
+  function PurchaseSuccess({ offer }) {
+    return (
+      <div className="cr-popup-overlay" style={{pointerEvents:"none"}}>
+        <div className="cr-popup-card" style={{
+          minWidth:220,
+          maxWidth:320,
+          gap: 8,
+          textAlign: "center",
+          background: "linear-gradient(90deg,#cff7c7 60%, #fffbe1 100%)",
+          borderColor: "#3DBB3D"
+        }}>
+          <div style={{fontSize: "2em", color:"#3DBB3D"}}>✅</div>
+          <div style={{fontWeight:700, fontSize: "1.11em"}}>Purchased!</div>
+          <div style={{marginTop: 0, fontSize:"0.97em"}}>
+            {offer.icon} <span style={{fontWeight:600}}>{offer.name}</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="cr-shop-screen" tabIndex={0} role="region" aria-label="Shop Screen">
-      <h2>Shop</h2>
-      <p>Buy resources, gems, and special items.</p>
-      <button
-        className="cr-btn-primary"
-        disabled
-        aria-disabled="true"
-        aria-label="In-App Purchases Disabled"
-      >
-        In-App Purchases Integration Placeholder
-      </button>
+      <h2 style={{color:"#4A2E0B", fontWeight:800, fontSize:"2.2em"}}>🛒 Shop</h2>
+      <div style={{color:"#837031", fontWeight:500, margin:"0 0 22px 0", fontSize:"1.09em"}}>
+        Pick a pack to boost your progress!
+      </div>
+      <div style={{
+        maxWidth: 370,
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: 0
+      }}>
+        {offers.map(offer => (
+          <OfferCard offer={offer} key={offer.id} />
+        ))}
+      </div>
+      <div className="cr-hint" style={{marginTop: 20, color:"#baac76", fontSize:"0.99em"}}>
+        All purchases are for demo purposes only.<br />
+        No real payments are processed.
+      </div>
+      {/* Confirmation and Preview Popups */}
+      {preview && (
+        <ShopModal
+          offer={preview}
+          onClose={() => setPreview(null)}
+          onConfirm={offer => {
+            setConfirmation(offer);
+            setTimeout(() => handlePurchase(offer), 1000);
+          }}
+        />
+      )}
+      {confirmation && (
+        <PurchaseSuccess offer={confirmation} />
+      )}
+      {purchased && (
+        <PurchaseSuccess offer={purchased} />
+      )}
+
       {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
-
+      {/* Local shop styling */}
+      <style>{`
+      .shop-offer-card:active { background: #fff4ce; transform: scale(0.99);}
+      @media (max-width: 450px) {
+        .shop-offer-card { font-size: 0.97em; min-height:52px; }
+      }
+      `}</style>
     </div>
   );
 }
@@ -1487,6 +1758,8 @@ function ScreenSkeleton({ screen }) {
       return <div />;
   }
 }
+
+
 
 // Ensure no stray isScreenLoading references below this line!
 
