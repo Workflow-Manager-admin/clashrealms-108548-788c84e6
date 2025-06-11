@@ -65,7 +65,7 @@ function SettingsPanel({ onClose }) {
                 onChange={handleMuteToggle}
                 aria-checked={muted}
                 aria-label={muted ? "Unmute all sounds" : "Mute all sounds"}
-                style={{width:20, height:20, accentColor:"#3DBB3D"}}
+                style={{width:20, height:20, accentColor:"#3D7BBB"}}
               />
               <span>Mute all game sounds</span>
             </label>

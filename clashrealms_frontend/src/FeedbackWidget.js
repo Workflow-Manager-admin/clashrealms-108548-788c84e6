@@ -115,7 +115,7 @@ function FeedbackWidget({ isOpen, onClose }) {
           >×</button>
         </div>
         {success ? (
-          <div style={{ textAlign: "center", fontSize: "1.07em", color: "#3DBB3D", padding: "20px 0" }}>
+          <div style={{ textAlign: "center", fontSize: "1.07em", color: "#3D7BBB", padding: "20px 0" }}>
             Thank you for your feedback! <br /><span aria-label="Thumbs up" style={{ fontSize: "1.6em" }}>👍</span>
             <button
               className="cr-btn-primary"

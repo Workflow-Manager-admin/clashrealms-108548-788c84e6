@@ -577,7 +577,7 @@ function ClashRealmsMain() {
           alt="avatar"
           style={{
             width: 36, height: 36, borderRadius: "50%",
-            objectFit: "cover", border: "2px solid #3DBB3D", background: "#fff", marginRight: 6
+            objectFit: "cover", border: "2px solid #3D7BBB", background: "#fff", marginRight: 6
           }}
           draggable={false}
         />
@@ -619,7 +619,7 @@ function ClashRealmsMain() {
         aria-label="Edit Profile and Avatar"
         style={{
           display: "flex", alignItems: "center", marginLeft: 9, fontSize: 16,
-          borderRadius: 21, padding: "3px 10px 3px 2px", outline: "none", border: "2px solid #3DBB3D",
+          borderRadius: 21, padding: "3px 10px 3px 2px", outline: "none", border: "2px solid #3D7BBB",
           background: "#fffcea", color: "#4A2E0B", fontWeight: 500, gap: 3, minWidth:0
         }}
         onClick={() => {
@@ -627,8 +627,8 @@ function ClashRealmsMain() {
           setShowProfileModal(true);
         }}
         tabIndex={0}
-        onFocus={e => (e.currentTarget.style.border = "2px solid #31c333")}
-        onBlur={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+        onFocus={e => (e.currentTarget.style.border = "2px solid #235dbb")}
+        onBlur={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
         title="Edit your profile/appearance"
       >
         {avatarNode}
@@ -683,7 +683,7 @@ function ClashRealmsMain() {
         onKeyDown={e => {
           if (e.key === "Tab") {
             // Visually indicate header focus ring on keyboard nav
-            e.currentTarget.style.boxShadow = "0 0 0 3px #3DBB3D";
+            e.currentTarget.style.boxShadow = "0 0 0 3px #3D7BBB";
           }
         }}
         onBlur={e => {
@@ -719,7 +719,7 @@ function ClashRealmsMain() {
             onClick={() => undoStack.length > 0 && doUndo()}
             disabled={undoStack.length === 0}
             tabIndex={0}
-            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
             onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
             title="Undo (Ctrl+Z)"
           >↩️ Undo</button>
@@ -738,7 +738,7 @@ function ClashRealmsMain() {
             onClick={() => redoStack.length > 0 && doRedo()}
             disabled={redoStack.length === 0}
             tabIndex={0}
-            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
             onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
             title="Redo (Ctrl+Y)"
           >Redo ↪️</button>
@@ -764,7 +764,7 @@ function ClashRealmsMain() {
           title="Send Feedback"
           onClick={() => { SoundManager.play("click"); setShowFeedbackModal(true); }}
           tabIndex={0}
-          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
         >
           <span role="img" aria-label="Feedback" style={{marginRight:4}}>💬</span>
@@ -788,7 +788,7 @@ function ClashRealmsMain() {
           aria-label="Open Settings"
           onClick={() => { SoundManager.play("click"); setShowSettings(true); }}
           tabIndex={0}
-          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
         >
           <span role="img" aria-label="Settings" style={{fontSize:"1.18em"}}>⚙️</span>
@@ -813,7 +813,7 @@ function ClashRealmsMain() {
             setShowHelpModal(true);
           }}
           tabIndex={0}
-          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
         >
           ?
@@ -957,7 +957,7 @@ function VillageView({
         style={{ outline: "none" }}
         onKeyDown={e => {
           if (e.key === "Tab") {
-            e.currentTarget.style.boxShadow = "0 0 0 3px #3DBB3D";
+            e.currentTarget.style.boxShadow = "0 0 0 3px #3D7BBB";
           }
         }}
         onBlur={e => {
@@ -1021,7 +1021,7 @@ function VillageView({
                     onClick={onTrainTroops}
                     tabIndex={0}
                     aria-label="Open Train/Upgrade Troops"
-                    onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+                    onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
                     onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
                   >
                     ⚔️ Train/Upgrade Troops
@@ -1050,7 +1050,7 @@ function VillageView({
                 aria-disabled={!canUpgrade}
                 role="button"
                 style={{ outline: "none", border: "2px solid transparent" }}
-                onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+                onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
                 onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
                 onKeyDown={e => {
                   if (["Enter", " "].includes(e.key)) { e.preventDefault(); triggerBuildingUpgrade(idx); }

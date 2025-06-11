@@ -73,7 +73,7 @@ function HelpFAQContent() {
         </p>
       </section>
       <section style={{ marginBottom: 14 }}>
-        <h4 style={{ color: "#3DBB3D", fontWeight: 600, marginBottom: 5 }}>Game Features</h4>
+        <h4 style={{ color: "#3D7BBB", fontWeight: 600, marginBottom: 5 }}>Game Features</h4>
         <ul style={{ color: "#4A2E0B", fontSize: "1.01em", marginBottom: 0 }}>
           <li><b>Base Building:</b> Tap buildings to upgrade—improves production and defense.</li>
           <li><b>Resource Management:</b> Collect and spend Gold, Elixir, and Gems.</li>
@@ -94,7 +94,7 @@ function HelpFAQContent() {
         </ul>
       </section>
       <section style={{ marginBottom: 14 }}>
-        <h4 style={{ color: "#3DBB3D", fontWeight: 600, marginBottom: 5 }}>Main UI Concepts</h4>
+        <h4 style={{ color: "#3D7BBB", fontWeight: 600, marginBottom: 5 }}>Main UI Concepts</h4>
         <ul style={{ color: "#4A2E0B", fontSize: "0.97em" }}>
           <li>
             <b>Upgrade Buildings:</b> Tap a building card to upgrade (if enough resources). Upgrades show a timer/progress bar.

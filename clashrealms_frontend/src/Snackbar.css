@@ -41,7 +41,7 @@
   pointer-events: auto;
 }
 .cr-snackbar.success {
-  border-color: var(--cr-accent, #3DBB3D);
+  border-color: var(--cr-accent, #3D7BBB);
   background: linear-gradient(90deg, #fffdea 0 60%, #e9ffda 98%);
   color: #203900;
 }
@@ -92,7 +92,7 @@
   background: #f5c54227;
 }
 .cr-snackbar:focus-visible {
-  outline: 2.5px solid var(--cr-accent, #3DBB3D);
+  outline: 2.5px solid var(--cr-accent, #3D7BBB);
   outline-offset: 3.5px;
 }
 

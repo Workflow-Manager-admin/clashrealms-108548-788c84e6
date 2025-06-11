@@ -20,7 +20,7 @@ function ConfettiOverlay({ show, onDone, triggerKey, durationMs = 1350 }) {
     canvas.height = window.innerHeight;
 
     // Confetti particle config
-    const colors = ["#F7E164", "#3DBB3D", "#bc56f2", "#ff5f43", "#E87A41"];
+    const colors = ["#F7E164", "#3D7BBB", "#bc56f2", "#ff5f43", "#E87A41"];
     const count = 58;
     let particles = [];
     for (let i = 0; i < count; ++i) {

@@ -127,7 +127,7 @@ function ResourceItem({ icon, className, value, label, onCollect }) {
           // Support nav, allow system to focus next
         }
       }}
-      onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+      onFocus={e => (e.currentTarget.style.border = "2px solid #3D7BBB")}
       onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
       title={`Collect more ${label}! (mock)`}
     >

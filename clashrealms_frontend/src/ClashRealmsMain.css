@@ -5,7 +5,7 @@
   --cr-loading-spinner: #F5C542;
   --cr-loading-card-bg: #fff9e7;
   --cr-secondary: #4A2E0B;
-  --cr-accent: #3DBB3D;
+  --cr-accent: #3D7BBB;
   --cr-bg-light: #fffcea;
   --cr-bg-card: #fff9e0;
   --cr-border: #e0b742;
@@ -207,7 +207,6 @@
   }
 }
 
-
 /* Village view */
 .cr-village-view {
   display: flex;
@@ -224,8 +223,8 @@
   transition: box-shadow 0.17s;
 }
 .cr-minimap-overview:focus-visible {
-  box-shadow: 0 0 0 3px #3DBB3D;
-  border-color: #3DBB3D;
+  box-shadow: 0 0 0 3px #3D7BBB;
+  border-color: #3D7BBB;
 }
 .cr-buildings-grid {
   display: grid;
@@ -483,7 +482,7 @@
 .cr-feedback-success-msg {
   text-align: center;
   font-size: 1.1em;
-  color: #3DBB3D;
+  color: #3D7BBB;
   margin-top: 18px;
 }
 @keyframes cr-fade-pop {
