@@ -1,0 +1,99 @@
+.cr-tooltip-trigger {
+  position: relative;
+  display: inline-block;
+  outline: none;
+}
+
+.cr-tooltip-box {
+  position: absolute;
+  z-index: 1200;
+  background: #fffbea;
+  color: #38210D;
+  font-size: 0.98em;
+  font-weight: 500;
+  border: 2px solid #F5C542;
+  border-radius: 9px;
+  box-shadow: 0 2px 14px #dac4412c, 0 1px 8px #fffcea9c;
+  padding: 10px 15px 9px 15px;
+  pointer-events: none;
+  opacity: 0.98;
+  min-width: 115px;
+  max-width: 260px;
+  line-height: 1.41;
+  animation: cr-tooltip-fadein 0.25s cubic-bezier(.34,.98,.51,1.1);
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+@keyframes cr-tooltip-fadein {
+  from { opacity: 0; transform: scale(.91) translateY(7px);}
+  to   { opacity: 0.98; transform: scale(1) translateY(0);}
+}
+
+.cr-tooltip-top {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 110%;
+  margin-bottom: 6px;
+}
+.cr-tooltip-bottom {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 110%;
+  margin-top: 6px;
+}
+.cr-tooltip-left {
+  right: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 6px;
+}
+.cr-tooltip-right {
+  left: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 6px;
+}
+
+@media (max-width: 540px) {
+  .cr-tooltip-box {
+    font-size: 1em;
+    min-width: 88px;
+    max-width: 83vw;
+    padding: 9px 3vw;
+  }
+}
+
+.cr-tooltip-box::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-style: solid;
+}
+
+.cr-tooltip-top::after {
+  top: 100%;
+  border-width: 7px 7px 0 7px;
+  border-color: #F5C542 transparent transparent transparent;
+}
+.cr-tooltip-bottom::after {
+  bottom: 100%;
+  border-width: 0 7px 7px 7px;
+  border-color: transparent transparent #F5C542 transparent;
+}
+.cr-tooltip-left::after {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 7px 0 7px 7px;
+  border-color: transparent transparent transparent #F5C542;
+}
+.cr-tooltip-right::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 7px 7px 7px 0;
+  border-color: transparent #F5C542 transparent transparent;
+}
