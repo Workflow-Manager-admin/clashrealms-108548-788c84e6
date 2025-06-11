@@ -48,7 +48,13 @@ function AnimatedResourceBar({ resources, onCollect }) {
   const gems = useAnimatedNumber(resources.gems);
 
   return (
-    <div className="cr-resources-bar" aria-label="Resource Bar">
+    <div
+      className="cr-resources-bar"
+      aria-label="Resource Bar"
+      role="region"
+      tabIndex={0}
+      style={{ outline: "none" }}
+    >
       <ResourceItem
         icon="⛃"
         className="cr-gold"
@@ -80,6 +86,8 @@ function AnimatedResourceBar({ resources, onCollect }) {
 function ResourceItem({ icon, className, value, label, onCollect }) {
   const [bump, setBump] = useState(false);
   const prev = useRef(value);
+  const itemRef = useRef();
+
   useEffect(() => {
     if (value !== prev.current) {
       setBump(true);
@@ -92,6 +100,7 @@ function ResourceItem({ icon, className, value, label, onCollect }) {
 
   return (
     <span
+      ref={itemRef}
       className={className + (bump ? " cr-resource-bump" : "")}
       style={{
         display: "inline-block",
@@ -100,16 +109,30 @@ function ResourceItem({ icon, className, value, label, onCollect }) {
         fontWeight: 600,
         transition: "transform 0.2s cubic-bezier(.48,1.65,.34,.95)",
         position: "relative",
-        cursor: "pointer"
+        cursor: "pointer",
+        outline: "none",
+        border: "2px solid transparent"
       }}
       tabIndex={0}
+      role="button"
       aria-label={`Collect ${label}`}
+      aria-pressed="false"
       onClick={onCollect}
-      onKeyDown={e => e.key === "Enter" && onCollect()}
+      onKeyDown={e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onCollect();
+        }
+        if (e.key === "Tab" || e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          // Support nav, allow system to focus next
+        }
+      }}
+      onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+      onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
       title={`Collect more ${label}! (mock)`}
     >
       {icon} <span>{value}</span>
-      <span className="cr-resource-collect-btn" tabIndex={-1} aria-label={`Collect ${label}`}>+</span>
+      <span className="cr-resource-collect-btn" tabIndex={-1} aria-hidden="true">+</span>
     </span>
   );
 }

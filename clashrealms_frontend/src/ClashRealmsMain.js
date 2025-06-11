@@ -378,8 +378,23 @@ function ClashRealmsMain() {
         onDone={() => setConfetti({ ...confetti, show: false })}
       />
 
-      <header className="cr-header" tabIndex={-1}>
-        <span className="cr-logo">🏰 ClashRealms</span>
+      <header
+        className="cr-header"
+        tabIndex={0}
+        role="banner"
+        aria-label="Game Header and Resource Bar"
+        style={{ outline: "none" }}
+        onKeyDown={e => {
+          if (e.key === "Tab") {
+            // Visually indicate header focus ring on keyboard nav
+            e.currentTarget.style.boxShadow = "0 0 0 3px #3DBB3D";
+          }
+        }}
+        onBlur={e => {
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        <span className="cr-logo" aria-label="ClashRealms Home">🏰 ClashRealms</span>
         <AnimatedResourceBar
           resources={resourceCounts}
           onCollect={handleCollectResource}
@@ -388,16 +403,26 @@ function ClashRealmsMain() {
         <button
           id="cr-help-tutorial-btn"
           className="cr-btn-accent"
-          style={{ marginLeft: 12, fontSize: 18, padding: "5px 13px", borderRadius: 12, alignSelf: "center" }}
+          style={{
+            marginLeft: 12,
+            fontSize: 18,
+            padding: "5px 13px",
+            borderRadius: 12,
+            alignSelf: "center",
+            outline: "none",
+            border: "2px solid transparent"
+          }}
           aria-label="Show Tutorial"
           onClick={startTutorial}
           tabIndex={0}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+          onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
         >
           ?
         </button>
       </header>
 
-      <main className="cr-main-content" tabIndex={-1}>
+      <main className="cr-main-content" tabIndex={0} role="main" aria-label="Main Game Content">
         {renderScreen()}
       </main>
 
@@ -476,7 +501,25 @@ function VillageView({
 
   return (
     <div className="cr-village-view">
-      <div className="cr-buildings-grid" tabIndex={-1}>
+      <div
+        className="cr-buildings-grid"
+        tabIndex={0}
+        role="region"
+        aria-label="Buildings Grid"
+        aria-describedby="buildings-access-desc"
+        style={{ outline: "none" }}
+        onKeyDown={e => {
+          if (e.key === "Tab") {
+            e.currentTarget.style.boxShadow = "0 0 0 3px #3DBB3D";
+          }
+        }}
+        onBlur={e => {
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        <span id="buildings-access-desc" style={{ position: "absolute", left: "-9999px" }}>
+          Use TAB and arrow keys to navigate buildings. Press ENTER to upgrade or open training.
+        </span>
         {buildingStates.map((b, idx) => {
           // Info for upgrade cost/time for this building's current level
           const ug = BUILDING_UPGRADE_INFO[b.key];
@@ -498,8 +541,31 @@ function VillageView({
                 className={`cr-building cr-building-${b.key} ${b.upgrading ? "is-upgrading" : ""}`}
                 onClick={onTrainTroops}
                 tabIndex={0}
-                aria-label="Train Troops"
+                aria-label="Train Troops at Army Camp"
+                role="button"
                 data-tutorial="armycamp"
+                aria-pressed="false"
+                style={{ outline: "none", border: "2px solid transparent" }}
+                onFocus={e => (e.currentTarget.style.border = "2px solid #F5C542")}
+                onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+                onKeyDown={e => {
+                  if (["Enter", " "].includes(e.key)) { e.preventDefault(); onTrainTroops(); }
+                  // Arrow key navigation
+                  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                    const next = e.currentTarget.parentElement.nextSibling;
+                    if (next && next.querySelector("button")) {
+                      next.querySelector("button").focus();
+                    }
+                  }
+                  if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                    e.preventDefault();
+                    const prev = e.currentTarget.parentElement.previousSibling;
+                    if (prev && prev.querySelector("button")) {
+                      prev.querySelector("button").focus();
+                    }
+                  }
+                }}
               >
                 <span>
                   {b.label}{b.level && b.level > 1 ? ` Lv.${b.level}` : ""}
@@ -507,9 +573,12 @@ function VillageView({
                   <button
                     type="button"
                     className="cr-btn-accent"
-                    style={{ marginTop: 8, fontSize: '0.93em', fontWeight: 500 }}
+                    style={{ marginTop: 8, fontSize: '0.93em', fontWeight: 500, outline: "none", border: "2px solid transparent" }}
                     onClick={onTrainTroops}
                     tabIndex={0}
+                    aria-label="Open Train/Upgrade Troops"
+                    onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+                    onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
                   >
                     ⚔️ Train/Upgrade Troops
                   </button>
@@ -535,6 +604,29 @@ function VillageView({
                 }
                 type="button"
                 data-tutorial={b.key}
+                aria-disabled={!canUpgrade}
+                role="button"
+                style={{ outline: "none", border: "2px solid transparent" }}
+                onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+                onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+                onKeyDown={e => {
+                  if (["Enter", " "].includes(e.key)) { e.preventDefault(); triggerBuildingUpgrade(idx); }
+                  // Arrow key navigation
+                  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                    const next = e.currentTarget.parentElement.nextSibling;
+                    if (next && next.querySelector("button")) {
+                      next.querySelector("button").focus();
+                    }
+                  }
+                  if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                    e.preventDefault();
+                    const prev = e.currentTarget.parentElement.previousSibling;
+                    if (prev && prev.querySelector("button")) {
+                      prev.querySelector("button").focus();
+                    }
+                  }
+                }}
               >
                 <span>
                   {b.label}{b.level && b.level > 1 ? ` Lv.${b.level}` : ""}
@@ -604,17 +696,35 @@ function BattleScreen({ onWin }) {
   }
 
   return (
-    <div className="cr-battle-screen">
+    <div
+      className="cr-battle-screen"
+      role="region"
+      aria-label="Battle Screen"
+      tabIndex={0}
+      style={{ outline: "none" }}
+    >
       <h2>Battle!</h2>
-      <div className="cr-battlefield-placeholder">
-        <span className="emoji">⚔️</span>
+      <div className="cr-battlefield-placeholder" aria-live="polite">
+        <span className="emoji" aria-label="Battle Emoji">⚔️</span>
         <p>Battles will play out here.</p>
         {!won ? (
-          <button className="cr-btn-accent" style={{minWidth:95}} onClick={handleWin}>
+          <button
+            className="cr-btn-accent"
+            style={{ minWidth: 95, outline: "none", border: "2px solid transparent" }}
+            onClick={handleWin}
+            tabIndex={0}
+            aria-label="Simulate Win Battle"
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+          >
             Mock Win Battle
           </button>
         ) : (
-          <span className="cr-upgrade-progress-label" style={{fontSize:'1.09em',color:'#3DBB3D'}}>Victory!</span>
+          <span
+            className="cr-upgrade-progress-label"
+            style={{ fontSize: '1.09em', color: '#3DBB3D' }}
+            aria-live="assertive"
+          >Victory!</span>
         )}
       </div>
     </div>
@@ -623,7 +733,7 @@ function BattleScreen({ onWin }) {
 
 function ClanScreen() {
   return (
-    <div className="cr-clan-screen">
+    <div className="cr-clan-screen" tabIndex={0} role="region" aria-label="Clan Screen">
       <h2>Clans</h2>
       <p>Clan features coming soon. Join or create a clan, chat, and participate in clan wars.</p>
     </div>
@@ -632,10 +742,15 @@ function ClanScreen() {
 
 function ShopScreen() {
   return (
-    <div className="cr-shop-screen">
+    <div className="cr-shop-screen" tabIndex={0} role="region" aria-label="Shop Screen">
       <h2>Shop</h2>
       <p>Buy resources, gems, and special items.</p>
-      <button className="cr-btn-primary" disabled>
+      <button
+        className="cr-btn-primary"
+        disabled
+        aria-disabled="true"
+        aria-label="In-App Purchases Disabled"
+      >
         In-App Purchases Integration Placeholder
       </button>
     </div>
@@ -645,16 +760,35 @@ function ShopScreen() {
 // --- Pop-up Menus ---
 
 function Popup({ title, children, onClose }) {
+  // Focus management: focus dialog on open, return focus on close
+  const popupRef = React.useRef(null);
+  useEffect(() => {
+    if (popupRef.current) popupRef.current.focus();
+  }, []);
   return (
-    <div className="cr-popup-overlay">
+    <div
+      className="cr-popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      tabIndex={-1}
+      ref={popupRef}
+      style={{ outline: "none" }}
+    >
       <div className="cr-popup-card">
         <div className="cr-popup-header">
           <span>{title}</span>
-          <button className="cr-popup-close" onClick={onClose}>×</button>
+          <button
+            className="cr-popup-close"
+            onClick={onClose}
+            aria-label="Close popup"
+            tabIndex={0}
+            onKeyDown={e => (e.key === "Enter" || e.key === " " ? onClose() : null)}
+            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+            onBlur={e => (e.currentTarget.style.border = "none")}
+          >×</button>
         </div>
-        <div className="cr-popup-content">
-          {children}
-        </div>
+        <div className="cr-popup-content">{children}</div>
       </div>
     </div>
   );
@@ -682,16 +816,21 @@ function TroopTrainingPopup({ troopUpgrades, triggerTroopUpgrade, resourceCounts
           !t.cooldown &&
           (!elixirCost || resourceCounts.elixir >= elixirCost);
         return (
-          <div key={t.key} style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: 12,
-            background: "#fffcea",
-            borderRadius: 11,
-            border: "1.4px solid #e0b742",
-            boxShadow: "0 1px 3px #dac44113",
-            padding: "11px 9px"
-          }}>
+          <div
+            key={t.key}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: 12,
+              background: "#fffcea",
+              borderRadius: 11,
+              border: "1.4px solid #e0b742",
+              boxShadow: "0 1px 3px #dac44113",
+              padding: "11px 9px"
+            }}
+            role="group"
+            aria-label={`Upgrade Troop: ${t.label}`}
+          >
             <span style={{ minWidth: 82 }}>
               {t.label} <span style={{ color: "#91ad0a", fontSize: '0.89em' }}>
                 Lv.{t.level}
@@ -708,6 +847,11 @@ function TroopTrainingPopup({ troopUpgrades, triggerTroopUpgrade, resourceCounts
                     <span
                       className="cr-upgrade-progress-bar-inner"
                       style={{ width: `${t.progress ?? 0}%` }}
+                      aria-valuenow={Math.round(t.progress ?? 0)}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      role="progressbar"
+                      aria-label="Upgrade Progress"
                     ></span>
                   </div>
                   <span className="cr-upgrade-progress-label" style={{ whiteSpace: "nowrap" }}>
@@ -724,7 +868,11 @@ function TroopTrainingPopup({ troopUpgrades, triggerTroopUpgrade, resourceCounts
                   className={`cr-btn-accent${!canUpgrade ? ' cr-btn-disabled' : ''}`}
                   disabled={!canUpgrade}
                   onClick={() => triggerTroopUpgrade(idx)}
-                  style={{ minWidth: 74, padding: "5px 14px", fontSize: '1em', fontWeight: 600 }}
+                  style={{ minWidth: 74, padding: "5px 14px", fontSize: '1em', fontWeight: 600, outline: "none", border: "2px solid transparent" }}
+                  tabIndex={0}
+                  aria-label={`Upgrade ${t.label}`}
+                  onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+                  onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
                 >
                   Upgrade
                 </button>
@@ -743,12 +891,37 @@ function TroopTrainingPopup({ troopUpgrades, triggerTroopUpgrade, resourceCounts
 // --- Reusable bottom navigation ---
 function BottomNav({ navItems, active, onChange }) {
   return (
-    <nav className="cr-bottom-nav">
-      {navItems.map((item) => (
+    <nav
+      className="cr-bottom-nav"
+      role="navigation"
+      aria-label="Bottom Navigation"
+    >
+      {navItems.map((item, idx) => (
         <button
           key={item.key}
           className={`cr-bottom-nav-btn${active === item.key ? " active" : ""}`}
           onClick={() => onChange(item.key)}
+          aria-current={active === item.key ? "page" : undefined}
+          aria-label={item.label}
+          role="tab"
+          tabIndex={0}
+          style={{ outline: "none", border: "2px solid transparent" }}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #F5C542")}
+          onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+          onKeyDown={e => {
+            if (["Enter", " "].includes(e.key)) { e.preventDefault(); onChange(item.key); }
+            // Left/right arrow keys for navigation
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              const btns = Array.from(e.currentTarget.parentNode.children);
+              btns[(idx + 1) % btns.length].focus();
+            }
+            if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              const btns = Array.from(e.currentTarget.parentNode.children);
+              btns[(idx === 0 ? btns.length : idx) - 1].focus();
+            }
+          }}
         >
           {iconForNav(item.key)}
           <span>{item.label}</span>
