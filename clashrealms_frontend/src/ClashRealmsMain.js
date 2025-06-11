@@ -384,6 +384,7 @@ function ClashRealmsMain() {
             resourceCounts={resourceCounts}
             BUILDING_UPGRADE_INFO={BUILDING_UPGRADE_INFO}
             triggerBuildingUpgrade={triggerBuildingUpgrade}
+            isScreenLoading={isScreenLoading}
           />
         );
       case "attack":
@@ -716,7 +717,8 @@ function VillageView({
   onCelebrate,
   resourceCounts,
   BUILDING_UPGRADE_INFO,
-  triggerBuildingUpgrade
+  triggerBuildingUpgrade,
+  isScreenLoading
 }) {
   // Celebrate after a full upgrade (completion detection)
   const prevProgress = useRef(buildingStates.map(b => b.progress));
