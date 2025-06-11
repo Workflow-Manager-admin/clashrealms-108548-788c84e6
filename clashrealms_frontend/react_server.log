@@ -22,4 +22,14 @@ cacheable modules 1.44 MiB
     modules by path ./.ve/*.js 10.6 KiB 2 modules
     modules by path ./.ve/*.css 2.93 KiB 2 modules
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 2071 ms
+webpack 5.99.9 compiled successfully in 2014 ms
+assets by status 703 bytes [cached] 1 asset
+assets by path *.js 1.71 MiB
+  asset bundle.js 1.63 MiB [emitted] (name: main)
+  asset main.d8810654465847d01916.hot-update.js 74.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.d8810654465847d01916.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.71 MiB = bundle.js 1.63 MiB main.d8810654465847d01916.hot-update.js 74.4 KiB
+cached modules 1.38 MiB [cached] 63 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 59.4 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 406 ms
