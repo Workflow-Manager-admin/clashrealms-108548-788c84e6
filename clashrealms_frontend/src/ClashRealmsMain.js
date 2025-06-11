@@ -707,13 +707,7 @@ function ClashRealmsMain() {
 // [Build Fix for PUBLIC_URL]
 // If any usage such as src={PUBLIC_URL + '/...'} exists, change it to src={process.env.PUBLIC_URL + '/...'}
 
-// --- UI Components ---
-
 import Minimap from "./Minimap";
-
-import Minimap from "./Minimap";
-
-/* REMOVE DUPLICATE IMPORTS FOR Minimap */
 
 function VillageView({
   buildingStates,
