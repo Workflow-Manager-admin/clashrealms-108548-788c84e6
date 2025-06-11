@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import "./ClashRealmsMain.css";
 import AnimatedResourceBar from "./ResourceBar";
 import ConfettiOverlay from "./ConfettiOverlay";
@@ -15,18 +15,77 @@ const NAV_ITEMS = [
  * PUBLIC_INTERFACE
  * ClashRealmsMain: Main game container.
  */
+/**
+ * Utility: Safe localStorage load
+ */
+function loadLocal(key, fallback) {
+  try {
+    const val = window.localStorage.getItem(key);
+    if (!val) return fallback;
+    return JSON.parse(val);
+  } catch (err) {
+    return fallback;
+  }
+}
+/**
+ * Utility: Safe localStorage save
+ */
+function saveLocal(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    // ignore
+  }
+}
+
+// Initial resource values
+const RESOURCE_DEFAULTS = {
+  gold: 1000,
+  elixir: 750,
+  gems: 50
+};
+// Initial buildings state
+const initialBuildings = [
+  { key: "goldmine", label: "Gold Mine", progress: 0, upgrading: false, level: 1 },
+  { key: "armycamp", label: "Army Camp", progress: 0, upgrading: false, level: 1 },
+  { key: "cannon", label: "Cannon", progress: 0, upgrading: false, level: 1 },
+  { key: "townhall", label: "Town Hall", progress: 0, upgrading: false, level: 1 },
+];
+
+/**
+ * PUBLIC_INTERFACE
+ * ClashRealmsMain: Main game container.
+ */
 function ClashRealmsMain() {
   // Navigation state: what screen is active?
   const [activeScreen, setActiveScreen] = useState("base");
+
   // Control popups
   const [popup, setPopup] = useState(null);
 
-  // Resource state for animated resource bar
-  const [resourceCounts, setResourceCounts] = useState({
-    gold: 1000,
-    elixir: 750,
-    gems: 50
-  });
+  // --- LOCAL STORAGE: Load resources, buildings ---
+  const [resourceCounts, setResourceCounts] = useState(() =>
+    loadLocal("cr_resources", RESOURCE_DEFAULTS)
+  );
+  const [persistLoaded, setPersistLoaded] = useState(false);
+  // Buildings state
+  const [buildingStates, setBuildingStates] = useState(() =>
+    loadLocal("cr_buildings", initialBuildings)
+  );
+  // RES: mark loaded so useEffect loading doesn't override after init
+  useEffect(() => {
+    setPersistLoaded(true);
+  }, []);
+
+  // Save resources to localStorage any time they change (after first load)
+  useEffect(() => {
+    if (persistLoaded) saveLocal("cr_resources", resourceCounts);
+  }, [resourceCounts, persistLoaded]);
+
+  // Save buildings to localStorage any time they change
+  useEffect(() => {
+    if (persistLoaded) saveLocal("cr_buildings", buildingStates);
+  }, [buildingStates, persistLoaded]);
 
   // Confetti state: what event caused celebration?
   const [confetti, setConfetti] = useState({ show: false, key: 0, message: "" });
@@ -35,21 +94,19 @@ function ClashRealmsMain() {
   // Handler: Animate resource "collection" (mock increment)
   function handleCollectResource(type) {
     setResourceCounts(res => {
-      // Choose a pseudo-random collect amount for demo
       let delta = 0;
       if (type === "gold") delta = 8 + Math.floor(Math.random() * 24);
       if (type === "elixir") delta = 7 + Math.floor(Math.random() * 16);
       if (type === "gems") delta = 1 + Math.floor(Math.random() * 2);
-      // If gems collect, treat as level-up-like celebration (for demo)
       if (type === "gems") {
         setTimeout(() => {
           setConfetti({ show: true, key: confettiNextKey.current++, message: "Gems Collected!" });
-        }, 100); // short delay to sync visual
+        }, 100);
       }
-      return {
-        ...res,
-        [type]: res[type] + delta
-      };
+      // Save immediately to ensure persistence
+      const updated = { ...res, [type]: res[type] + delta };
+      saveLocal("cr_resources", updated);
+      return updated;
     });
   }
 
@@ -58,15 +115,15 @@ function ClashRealmsMain() {
     setConfetti({ show: true, key: confettiNextKey.current++, message });
   }
 
-  // Integration points for core modules (placeholders)
-  // In real implementations, these would import and render feature modules.
+  // --- Integration points for core modules (placeholders) ---
   const renderScreen = () => {
     switch (activeScreen) {
       case "base":
         return (
           <VillageView
-            // Show pop-up + celebrate effect when upgrading any building
-            onBuildingClick={() => {
+            buildingStates={buildingStates}
+            setBuildingStates={setBuildingStates}
+            onBuildingClick={(idx) => {
               celebrate("Building Upgraded!");
               setPopup("building-upgrade");
             }}
@@ -75,10 +132,7 @@ function ClashRealmsMain() {
           />
         );
       case "attack":
-        // Battle screen: trigger confetti on (mock) win
-        return (
-          <BattleScreen onWin={() => celebrate("Victory in Battle!")} />
-        );
+        return <BattleScreen onWin={() => celebrate("Victory in Battle!")} />;
       case "clan":
         return <ClanScreen />;
       case "shop":
@@ -135,16 +189,7 @@ function ClashRealmsMain() {
 
 // --- UI Components (simplified stubs, integration points for feature modules) ---
 
-function VillageView({ onBuildingClick, onTrainTroops, onCelebrate }) {
-  // Interactive per-building upgrade progress (frontend-only mock for now)
-  // We'll show one as "Upgrading" for demo (could be randomized in real app)
-  const initial = [
-    { key: "goldmine", label: "Gold Mine", progress: 0, upgrading: false },
-    { key: "armycamp", label: "Army Camp", progress: 0, upgrading: false },
-    { key: "cannon", label: "Cannon", progress: 0, upgrading: false },
-    { key: "townhall", label: "Town Hall", progress: 0, upgrading: false },
-  ];
-  const [buildingStates, setBuildingStates] = React.useState(initial);
+function VillageView({ buildingStates, setBuildingStates, onBuildingClick, onTrainTroops, onCelebrate }) {
   // Celebrate after a full upgrade (upgrade completion detection)
   const prevProgress = useRef(buildingStates.map(b => b.progress));
 
@@ -158,41 +203,38 @@ function VillageView({ onBuildingClick, onTrainTroops, onCelebrate }) {
       )
     );
     // integration: fire upgrade effect in parent
-    onBuildingClick && onBuildingClick();
+    onBuildingClick && onBuildingClick(idx);
   };
 
   // Animate progress if any building "upgrading"
-  React.useEffect(() => {
-    let running = true;
-    let frame;
+  useEffect(() => {
+    let animationId;
+    const hasUpgrade = buildingStates.some(b => b.upgrading);
+    if (!hasUpgrade) return;
+    // progress ticker
     const tick = () => {
       setBuildingStates(bs =>
         bs.map(b => {
           if (!b.upgrading) return b;
           const next = { ...b, progress: Math.min(100, b.progress + 1.3 + Math.random() * 2.5) };
+          // On complete, mark upgrade done and optionally increase "level"
           if (next.progress >= 100) {
             next.progress = 100;
             next.upgrading = false;
+            // You could add: next.level = (b.level || 1) + 1
           }
           return next;
         })
       );
-      if (buildingStates.some(b => b.upgrading)) {
-        frame = setTimeout(tick, 32);
-      }
+      animationId = setTimeout(tick, 32);
     };
-    if (buildingStates.some(b => b.upgrading) && running) {
-      frame = setTimeout(tick, 32);
-    }
-    return () => {
-      running = false;
-      if (frame) clearTimeout(frame);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [buildingStates]);
+    animationId = setTimeout(tick, 32);
+    return () => animationId && clearTimeout(animationId);
+    // eslint-disable-next-line
+  }, [buildingStates, setBuildingStates]);
 
   // Detect when an upgrade completes to flash confetti
-  React.useEffect(() => {
+  useEffect(() => {
     buildingStates.forEach((b, idx) => {
       if (
         prevProgress.current[idx] < 100 &&
@@ -205,7 +247,7 @@ function VillageView({ onBuildingClick, onTrainTroops, onCelebrate }) {
     });
     prevProgress.current = buildingStates.map(b => b.progress);
     // eslint-disable-next-line
-  }, [buildingStates]);
+  }, [buildingStates, onCelebrate]);
 
   return (
     <div className="cr-village-view">
@@ -228,7 +270,7 @@ function VillageView({ onBuildingClick, onTrainTroops, onCelebrate }) {
             }
           >
             <span>
-              {b.label}
+              {b.label}{b.level && b.level > 1 ? ` Lv.${b.level}` : ""}
               {b.upgrading && (
                 <span className="cr-upgrade-progress-ctr">
                   <span className="cr-upgrade-progress-bar">
@@ -366,12 +408,7 @@ function BottomNav({ navItems, active, onChange }) {
 
 
 
-/*
- If you have asset or image URLs that use PUBLIC_URL directly (e.g. <img src={PUBLIC_URL + "/foo.png"} />),
- replace PUBLIC_URL with process.env.PUBLIC_URL for correct Create React App support.
- Example:
-   <img src={process.env.PUBLIC_URL + "/foo.png"} alt="..." />
-*/
+
 
  // --- Misc --- 
 function Hint({ children }) {
