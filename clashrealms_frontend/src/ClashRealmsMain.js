@@ -9,6 +9,7 @@ import SoundManager from "./SoundManager";
 import SettingsPanel from "./SettingsPanel";
 import UserProfileModal from "./UserProfileModal";
 import LoadingOverlay from "./LoadingOverlay";
+import BattleReplay from "./BattleReplay";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -928,14 +929,8 @@ function VillageView({
 // --- Other screens & popups ---
 
 function BattleScreen({ onWin, isScreenLoading }) {
-  // Mock: Pretend user can "win" a mock battle
-  const [won, setWon] = useState(false);
-
-  function handleWin() {
-    setWon(true);
-    onWin && onWin();
-    setTimeout(() => setWon(false), 1400); // reset button
-  }
+  // Display a mock battle replay for user engagement
+  // Optionally, you could propagate onWin when a replay ends with victory
 
   return (
     <div
@@ -946,32 +941,9 @@ function BattleScreen({ onWin, isScreenLoading }) {
       style={{ outline: "none" }}
     >
       <h2>Battle!</h2>
-      <div className="cr-battlefield-placeholder" aria-live="polite">
-        <span className="emoji" aria-label="Battle Emoji">⚔️</span>
-        <p>Battles will play out here.</p>
-        {!won ? (
-          <button
-            className="cr-btn-accent"
-            style={{ minWidth: 95, outline: "none", border: "2px solid transparent" }}
-            onClick={handleWin}
-            tabIndex={0}
-            aria-label="Simulate Win Battle"
-            onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
-            onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
-          >
-            Mock Win Battle
-          </button>
-        ) : (
-          <span
-            className="cr-upgrade-progress-label"
-            style={{ fontSize: '1.09em', color: '#3DBB3D' }}
-            aria-live="assertive"
-          >Victory!</span>
-        )}
-      </div>
+      <BattleReplay onReplayEnd={() => onWin && onWin()} />
       {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
-
     </div>
   );
 }
