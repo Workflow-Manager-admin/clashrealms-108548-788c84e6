@@ -1,0 +1,106 @@
+.cr-snackbar-list {
+  position: fixed;
+  z-index: 3001;
+  bottom: 36px;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.cr-snackbar {
+  min-width: 236px;
+  max-width: 89vw;
+  background: var(--cr-secondary, #4A2E0B);
+  color: var(--cr-text-main, #38210D);
+  border-radius: 13px;
+  box-shadow: 0 4px 24px #e7b82325, 0 1.6px 8px #f5c54235;
+  border: 2.4px solid var(--cr-primary, #F5C542);
+  font-size: 1.13em;
+  font-family: inherit;
+  padding: 16px 18px 14px 12px;
+  margin: 7px 0;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.19s, transform 0.22s cubic-bezier(.27,.96,.48,1.21);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  outline: none;
+  pointer-events: auto;
+  user-select: none;
+}
+.cr-snackbar.closed {
+  opacity: 0;
+  transform: translateY(50px) scale(0.98);
+  pointer-events: none;
+}
+.cr-snackbar.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cr-snackbar.success {
+  border-color: var(--cr-accent, #3DBB3D);
+  background: linear-gradient(90deg, #fffdea 0 60%, #e9ffda 98%);
+  color: #203900;
+}
+.cr-snackbar.error {
+  border-color: #e01842;
+  background: linear-gradient(90deg, #ffeeea 0 68%, #fce3e3 98%);
+  color: #AC1B2F;
+}
+.cr-snackbar.info {
+  border-color: var(--cr-primary, #F5C542);
+  background: linear-gradient(90deg, #fffce3 50%, #f9efa8 100%);
+  color: #38210D;
+}
+.cr-snackbar-icon {
+  font-size: 1.28em;
+  margin-right: 6px;
+  margin-left: 2px;
+  display: inline-block;
+}
+.cr-snackbar-msg {
+  flex: 1;
+  line-height: 1.42;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  word-break: break-word;
+}
+.cr-snackbar-close {
+  background: none;
+  border: none;
+  font-size: 1.32em;
+  margin-left: 8px;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  min-width: 30px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  transition: background 0.14s;
+  pointer-events: auto;
+}
+.cr-snackbar-close:focus-visible,
+.cr-snackbar-close:active {
+  background: #f5c54227;
+}
+.cr-snackbar:focus-visible {
+  outline: 2.5px solid var(--cr-accent, #3DBB3D);
+  outline-offset: 3.5px;
+}
+
+/* Responsive font sizing */
+@media (max-width: 540px) {
+  .cr-snackbar {
+    font-size: 0.99em;
+    padding: 13px 8vw 10px 9px;
+    min-width: 110px;
+  }
+}

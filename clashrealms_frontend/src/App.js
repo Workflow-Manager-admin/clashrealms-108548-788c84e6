@@ -1,11 +1,14 @@
 import React from "react";
 import ClashRealmsMain from "./ClashRealmsMain";
 import "./App.css";
+import { SnackbarProvider } from "./Snackbar";
 
 function App() {
   return (
     <React.StrictMode>
-      <ClashRealmsMain />
+      <SnackbarProvider>
+        <ClashRealmsMain />
+      </SnackbarProvider>
     </React.StrictMode>
   );
 }

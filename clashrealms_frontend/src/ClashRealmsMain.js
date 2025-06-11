@@ -4,6 +4,7 @@ import AnimatedResourceBar from "./ResourceBar";
 import ConfettiOverlay from "./ConfettiOverlay";
 import TutorialOverlay from "./TutorialOverlay";
 import "./TutorialOverlay.css";
+import { useSnackbar } from "./Snackbar";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -77,6 +78,9 @@ function ClashRealmsMain() {
   // Navigation state: what screen is active?
   const [activeScreen, setActiveScreen] = useState("base");
 
+  // --- Snackbar hook ---
+  const showSnackbar = useSnackbar();
+
   // --- TUTORIAL state ---
   const [tutorialStep, setTutorialStep] = useState(null);
 
@@ -140,7 +144,14 @@ function ClashRealmsMain() {
       if (type === "gems") {
         setTimeout(() => {
           setConfetti({ show: true, key: confettiNextKey.current++, message: "Gems Collected!" });
+          showSnackbar &&
+            showSnackbar({ message: "Gems collected! 💎", type: "success" });
         }, 100);
+      } else if (type === "gold") {
+        showSnackbar && showSnackbar({ message: "Gold collected! ⛃", type: "info" });
+      } else if (type === "elixir") {
+        showSnackbar &&
+          showSnackbar({ message: "Elixir collected! ✦", type: "info" });
       }
       // Save immediately to ensure persistence
       const updated = { ...res, [type]: res[type] + delta };
@@ -152,6 +163,7 @@ function ClashRealmsMain() {
   // Celebrate for mock major events (building upgrade, battle win, etc)
   function celebrate(message = "Congratulations!") {
     setConfetti({ show: true, key: confettiNextKey.current++, message });
+    showSnackbar && showSnackbar({ message, type: "success" });
   }
 
   // --- Upgrade simulation logic for buildings ---
@@ -178,8 +190,19 @@ function ClashRealmsMain() {
             elixir: Math.max(0, res.elixir - (baseElixir || 0))
           };
         });
-        if (!allowed) return b;
+        if (!allowed) {
+          showSnackbar && showSnackbar({
+            message: "Not enough resources to upgrade!",
+            type: "error"
+          });
+          return b;
+        }
         // Set upgrading flag and cooldown
+        showSnackbar &&
+          showSnackbar({
+            message: `Upgrading ${b.label}...`,
+            type: "info"
+          });
         return {
           ...b,
           upgrading: true,
@@ -212,7 +235,19 @@ function ClashRealmsMain() {
             elixir: Math.max(0, res.elixir - baseElixir)
           };
         });
-        if (!allowed) return t;
+        if (!allowed) {
+          showSnackbar &&
+            showSnackbar({
+              message: "Not enough elixir to upgrade troop!",
+              type: "error"
+            });
+          return t;
+        }
+        showSnackbar &&
+          showSnackbar({
+            message: `Upgrading ${t.label}...`,
+            type: "info"
+          });
         // Set upgrading flag and cooldown
         return {
           ...t,
