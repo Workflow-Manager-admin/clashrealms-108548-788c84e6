@@ -709,6 +709,12 @@ function ClashRealmsMain() {
 
 // --- UI Components ---
 
+import Minimap from "./Minimap";
+
+import Minimap from "./Minimap";
+
+/* REMOVE DUPLICATE IMPORTS FOR Minimap */
+
 function VillageView({
   buildingStates,
   setBuildingStates,
@@ -738,6 +744,8 @@ function VillageView({
 
   return (
     <div className="cr-village-view">
+      {/* Village Minimap Overview */}
+      <Minimap buildings={buildingStates} width={130} height={130} />
       <div
         className="cr-buildings-grid"
         tabIndex={0}

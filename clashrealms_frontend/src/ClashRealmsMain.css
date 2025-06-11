@@ -217,6 +217,16 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.cr-minimap-overview {
+  margin-bottom: 8px;
+  outline: none;
+  transition: box-shadow 0.17s;
+}
+.cr-minimap-overview:focus-visible {
+  box-shadow: 0 0 0 3px #3DBB3D;
+  border-color: #3DBB3D;
+}
 .cr-buildings-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(110px, 1fr));
