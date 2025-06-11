@@ -490,12 +490,23 @@ function ClashRealmsMain() {
       </header>
 
       <main className="cr-main-content" tabIndex={0} role="main" aria-label="Main Game Content">
-        {/* Show skeleton shimmer if loading */}
-        {isScreenLoading ? (
-          <ScreenSkeleton screen={pendingScreen || activeScreen} />
-        ) : (
-          renderScreen()
-        )}
+        {/* Animated cross-fade transitions between content loads */}
+        <div
+          style={{
+            position: "relative",
+            minHeight: "320px",
+            width: "100%",
+            transition: "opacity 0.38s cubic-bezier(.36,1.12,.12,1.06)",
+            opacity: isScreenLoading ? 0.56 : 1
+          }}
+          aria-busy={isScreenLoading}
+        >
+          {isScreenLoading ? (
+            <ScreenSkeleton screen={pendingScreen || activeScreen} />
+          ) : (
+            renderScreen()
+          )}
+        </div>
       </main>
 
       <BottomNav
@@ -544,7 +555,7 @@ function ClashRealmsMain() {
       {showSettings && (
         <SettingsPanel onClose={() => setShowSettings(false)} />
       )}
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -767,7 +778,7 @@ function VillageView({
           </span>
         </Hint>
       </div>
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -818,7 +829,7 @@ function BattleScreen({ onWin }) {
           >Victory!</span>
         )}
       </div>
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -830,7 +841,7 @@ function ClanScreen() {
     <div className="cr-clan-screen" tabIndex={0} role="region" aria-label="Clan Screen">
       <h2>Clans</h2>
       <p>Clan features coming soon. Join or create a clan, chat, and participate in clan wars.</p>
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -850,7 +861,7 @@ function ShopScreen() {
       >
         In-App Purchases Integration Placeholder
       </button>
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -890,7 +901,7 @@ function Popup({ title, children, onClose }) {
         </div>
         <div className="cr-popup-content">{children}</div>
       </div>
-      {/* Global animated loader for screen transitions */}
+      {/* Global animated loader for screen transitions: Covers whole UI during nav/content loads */}
       <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
 
     </div>
@@ -1054,45 +1065,87 @@ function iconForNav(key) {
   }
 }
 
-/** Simple screen shimmer skeletons for main screens */
+/** Simple screen shimmer skeletons for major screens, with enhanced animation for polish */
 function ScreenSkeleton({ screen }) {
-  // Choose different skeletons for each screen if desired
+  // Cross-screen shimmer effect for transitions
+  let skeletonTheme = {
+    borderRadius: 18,
+    boxShadow: "0 4px 24px #f5c54228",
+    border: "2px solid #f5c54222",
+    animation: "loading-pop-scale 0.37s cubic-bezier(.16,.75,.38,1.49)"
+  };
+
   switch (screen) {
     case "base":
       return (
-        <div className="cr-village-view">
-          <div className="cr-buildings-grid" style={{ pointerEvents: "none" }}>
+        <div
+          className="cr-village-view"
+          style={{
+            opacity: 0.98,
+            animation: "loading-fade-in 0.5s",
+            pointerEvents: "none",
+            userSelect: "none"
+          }}
+          aria-hidden="true"
+        >
+          <div className="cr-buildings-grid">
             {[1, 2, 3, 4].map((n, i) => (
               <div
                 key={i}
                 className="cr-skeleton-ui"
-                style={{ width: 120, height: 110, margin: 8 }}
-                aria-hidden="true"
+                style={{
+                  ...skeletonTheme,
+                  width: 120,
+                  height: 110,
+                  margin: 8,
+                  animationDelay: `${0.1 * i}s`
+                }}
               ></div>
             ))}
           </div>
-          <div className="cr-skeleton-ui" style={{ width: 265, height: 23, margin: "18px auto 9px auto" }}></div>
+          <div
+            className="cr-skeleton-ui"
+            style={{
+              ...skeletonTheme,
+              width: 265,
+              height: 23,
+              margin: "18px auto 9px auto",
+              animationDelay: "0.45s"
+            }}
+          />
         </div>
       );
     case "attack":
       return (
-        <div className="cr-battle-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
-          <div className="cr-skeleton-ui" style={{ width: 260, height: 68, margin: "55px auto" }} />
-          <div className="cr-skeleton-ui" style={{ width: 110, height: 32, margin: "22px auto" }} />
+        <div
+          className="cr-battle-screen"
+          style={{ maxWidth: 476, margin: "0 auto", pointerEvents: "none", opacity: 0.98, animation: "loading-fade-in 0.5s" }}
+          aria-hidden="true"
+        >
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 260, height: 68, margin: "55px auto" }} />
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 110, height: 32, margin: "22px auto" }} />
         </div>
       );
     case "clan":
       return (
-        <div className="cr-clan-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
-          <div className="cr-skeleton-ui" style={{ width: 250, height: 34, margin: "37px auto 0 auto" }} />
-          <div className="cr-skeleton-ui" style={{ width: 195, height: 24, margin: "19px auto" }} />
+        <div
+          className="cr-clan-screen"
+          style={{ maxWidth: 476, margin: "0 auto", pointerEvents: "none", opacity: 0.98, animation: "loading-fade-in 0.5s" }}
+          aria-hidden="true"
+        >
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 250, height: 34, margin: "37px auto 0 auto" }} />
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 195, height: 24, margin: "19px auto" }} />
         </div>
       );
     case "shop":
       return (
-        <div className="cr-shop-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
-          <div className="cr-skeleton-ui" style={{ width: 201, height: 31, margin: "32px auto 0 auto" }} />
-          <div className="cr-skeleton-ui" style={{ width: 130, height: 22, margin: "17px auto" }} />
+        <div
+          className="cr-shop-screen"
+          style={{ maxWidth: 476, margin: "0 auto", pointerEvents: "none", opacity: 0.98, animation: "loading-fade-in 0.5s" }}
+          aria-hidden="true"
+        >
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 201, height: 31, margin: "32px auto 0 auto" }} />
+          <div className="cr-skeleton-ui" style={{ ...skeletonTheme, width: 130, height: 22, margin: "17px auto" }} />
         </div>
       );
     default:
