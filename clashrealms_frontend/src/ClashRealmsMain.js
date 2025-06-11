@@ -76,32 +76,104 @@ function ClashRealmsMain() {
 // --- UI Components (simplified stubs, integration points for feature modules) ---
 
 function VillageView({ onBuildingClick, onTrainTroops }) {
-  // Placeholder: A visually "top-down" grid with interactive buildings.
-  // Replace with a canvas or SVG for greater realism in production.
+  // Interactive per-building upgrade progress (frontend-only mock for now)
+  // We'll show one as "Upgrading" for demo (could be randomized in real app)
+  const initial = [
+    { key: "goldmine", label: "Gold Mine", progress: 0, upgrading: false },
+    { key: "armycamp", label: "Army Camp", progress: 0, upgrading: false },
+    { key: "cannon", label: "Cannon", progress: 0, upgrading: false },
+    { key: "townhall", label: "Town Hall", progress: 0, upgrading: false },
+  ];
+  const [buildingStates, setBuildingStates] = React.useState(initial);
+
+  // Handler for "upgrade" interactions (mock: start progress bar)
+  const handleBuildingClick = idx => {
+    setBuildingStates(bs =>
+      bs.map((b, i) =>
+        i === idx
+          ? { ...b, upgrading: true, progress: 0 }
+          : b
+      )
+    );
+    // If needed, we could also fire a prop or open a popup
+  };
+
+  // Animate progress if any building "upgrading"
+  React.useEffect(() => {
+    let running = true;
+    let frame;
+    const tick = () => {
+      setBuildingStates(bs =>
+        bs.map(b => {
+          if (!b.upgrading) return b;
+          const next = { ...b, progress: Math.min(100, b.progress + 1.3 + Math.random() * 2.5) };
+          if (next.progress >= 100) {
+            next.progress = 100;
+            next.upgrading = false;
+          }
+          return next;
+        })
+      );
+      if (buildingStates.some(b => b.upgrading)) {
+        frame = setTimeout(tick, 32);
+      }
+    };
+    if (buildingStates.some(b => b.upgrading) && running) {
+      frame = setTimeout(tick, 32);
+    }
+    return () => {
+      running = false;
+      if (frame) clearTimeout(frame);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [buildingStates]);
+
   return (
     <div className="cr-village-view">
       <div className="cr-buildings-grid">
-        <button
-          className="cr-building cr-building-goldmine"
-          onClick={onBuildingClick}
-        >
-          Gold Mine
-        </button>
-        <button
-          className="cr-building cr-building-armycamp"
-          onClick={onTrainTroops}
-        >
-          Army Camp
-        </button>
-        <button className="cr-building cr-building-cannon" onClick={onBuildingClick}>
-          Cannon
-        </button>
-        <button className="cr-building cr-building-townhall" onClick={onBuildingClick}>
-          Town Hall
-        </button>
+        {buildingStates.map((b, idx) => (
+          <button
+            key={b.key}
+            className={`cr-building cr-building-${b.key} ${b.upgrading ? "is-upgrading" : ""}`}
+            onClick={b.key === "armycamp" ? onTrainTroops : () => handleBuildingClick(idx)}
+            disabled={b.upgrading}
+            tabIndex={0}
+            aria-label={
+              b.label +
+              (b.upgrading
+                ? " upgrading, please wait"
+                : b.key === "armycamp"
+                  ? ", click to train troops"
+                  : ", click to upgrade"
+              )
+            }
+          >
+            <span>
+              {b.label}
+              {b.upgrading && (
+                <span className="cr-upgrade-progress-ctr">
+                  <span className="cr-upgrade-progress-bar">
+                    <span
+                      className="cr-upgrade-progress-bar-inner"
+                      style={{ width: `${b.progress}%` }}
+                    ></span>
+                  </span>
+                  <span className="cr-upgrade-progress-label">
+                    {b.progress < 100 ? `Upgrading... ${Math.round(b.progress)}%` : `Upgrade Complete!`}
+                  </span>
+                </span>
+              )}
+            </span>
+          </button>
+        ))}
       </div>
       <div className="cr-helperbar">
-        <Hint>Tip: Click buildings to upgrade or train troops!</Hint>
+        <Hint>
+          Tip: Click buildings to trigger upgrade animations!{" "}
+          <span style={{ color: "#4A2E0B", fontWeight: 500 }}>
+            Try town hall or gold mine.
+          </span>
+        </Hint>
       </div>
     </div>
   );

@@ -95,12 +95,75 @@
   font-size: 1.2rem;
   box-shadow: 0 2px 16px var(--cr-shadow);
   cursor: pointer;
-  transition: border 0.2s, box-shadow 0.15s;
-}
-.cr-building:active,
-.cr-building:focus {
-  border-color: var(--cr-accent);
+  transition: border 0.18s, box-shadow 0.16s, transform 0.17s cubic-bezier(.29,.45,.69,1.2), background 0.16s;
   outline: none;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Building Animations */
+.cr-building:hover:not(:disabled) {
+  border-color: var(--cr-accent);
+  box-shadow: 0 4px 23px var(--cr-shadow), 0 0 0 3px #f5c54266;
+  transform: scale(1.067) translateY(-3px);
+  background: #fffedd;
+}
+.cr-building:active:not(:disabled) {
+  border-color: var(--cr-accent);
+  transform: scale(.98) translateY(2px);
+  background: #ffe990;
+}
+.cr-building.is-upgrading {
+  border-color: var(--cr-accent);
+  animation: cr-pulse-glow 0.9s infinite alternate;
+  pointer-events: none;
+  box-shadow: 0 0 0 5px #f8ea97bb;
+  cursor: progress;
+  filter: brightness(0.98);
+}
+
+/* Glow for upgrade in progress */
+@keyframes cr-pulse-glow {
+  to   { box-shadow: 0 0 18px 7px #ffec8c52; }
+  from { box-shadow: 0 0 9px 2.4px #ecd85333; }
+}
+
+/* Upgrade Progress Bar */
+.cr-upgrade-progress-ctr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  width: 100%;
+  gap: 1px;
+}
+.cr-upgrade-progress-bar {
+  width: 83px;
+  height: 11px;
+  background: linear-gradient(90deg, #f5c542 55%, #ffe574 100%);
+  border: 1px solid #e0b742;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px #dac44117;
+  position: relative;
+  overflow: hidden;
+}
+.cr-upgrade-progress-bar-inner {
+  background: linear-gradient(90deg, #ffdf43 60%, #aec943 97%);
+  height: 100%;
+  border-radius: 5px 6px 6px 5px;
+  transition: width 0.22s cubic-bezier(.18,.58,.29,1.19);
+  display: block;
+  min-width: 4px;
+}
+.cr-upgrade-progress-label {
+  font-size: 0.96em;
+  color: #ab920a;
+  font-weight: 500;
+  margin-top: 2px;
+  text-shadow: 0 1px 2px #ffeaa990;
+  min-height: 1em;
 }
 
 .cr-helperbar {
