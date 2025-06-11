@@ -440,6 +440,8 @@ function ClashRealmsMain() {
 
 /**
  * NOTE: If you are using PUBLIC_URL in your code, use process.env.PUBLIC_URL instead.
+ * 
+ * (Applied fix for build error: ensure all usages are process.env.PUBLIC_URL)
  */
 
 // --- UI Components ---
