@@ -440,6 +440,34 @@
   background: #f5c54222;
   color: var(--cr-secondary);
 }
+
+/* FeedbackWidget specific styles (modal layout is reused from cr-popup-card) */
+.cr-feedback-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.cr-feedback-stars button {
+  background: none;
+  border: none;
+  font-size: 1.6em;
+  color: #ccc;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.18s;
+  line-height: 1;
+}
+.cr-feedback-stars button.selected,
+.cr-feedback-stars button:focus,
+.cr-feedback-stars button[aria-pressed="true"] {
+  color: #f5c542;
+}
+.cr-feedback-success-msg {
+  text-align: center;
+  font-size: 1.1em;
+  color: #3DBB3D;
+  margin-top: 18px;
+}
 @keyframes cr-fade-pop {
   from { opacity: 0; transform: scale(0.92);}
   to   { opacity: 1; transform: scale(1);}
