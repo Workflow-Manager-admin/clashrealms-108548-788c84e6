@@ -12,10 +12,10 @@ asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
 cacheable modules 1.34 MiB
   modules by path ./node_modules/ 1.24 MiB 31 modules
-  modules by path ./src/ 90.2 KiB
+  modules by path ./src/ 90.3 KiB
     modules by path ./src/*.css 31.7 KiB 10 modules
-    modules by path ./src/*.js 58.6 KiB
-      ./src/index.js 530 bytes [built] [code generated]
+    modules by path ./src/*.js 58.7 KiB
+      ./src/index.js 607 bytes [built] [code generated]
       + 6 modules
   modules by path ./.ve/ 15.1 KiB
     modules by path ./.ve/*.js 10.6 KiB 2 modules
@@ -23,70 +23,486 @@ cacheable modules 1.34 MiB
       ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
       ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1839 ms
+webpack 5.99.9 compiled successfully in 1822 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.51 MiB
+assets by path *.js 1.57 MiB
   asset bundle.js 1.51 MiB [emitted] (name: main)
-  asset main.0e66dc8f82381656c583.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
-asset main.0e66dc8f82381656c583.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.51 MiB = bundle.js 1.51 MiB main.0e66dc8f82381656c583.hot-update.js 854 bytes
-cached modules 1.34 MiB [cached] 52 modules
+  asset main.8325c8698427d922f763.hot-update.js 56 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8325c8698427d922f763.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.57 MiB = bundle.js 1.51 MiB main.8325c8698427d922f763.hot-update.js 56 KiB
+cached modules 1.3 MiB [cached] 52 modules
 runtime modules 27.5 KiB 14 modules
-./src/Snackbar.js 4.88 KiB [built]
-webpack 5.99.9 compiled successfully in 117 ms
-assets by status 1.51 MiB [cached] 2 assets
-cached modules 1.34 MiB (javascript) 27.5 KiB (runtime) [cached] 66 modules
-./node_modules/css-loader/dist/cjs.js!./src/Snackbar.css 2.71 KiB [built]
-webpack 5.99.9 compiled successfully in 46 ms
+javascript modules 44.3 KiB
+  ./src/ClashRealmsMain.js 41.6 KiB [built] [code generated]
+  ./src/SoundManager.js 2.68 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 342 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.51 MiB
+assets by path *.js 1.56 MiB
   asset bundle.js 1.51 MiB [emitted] (name: main)
-  asset main.679a0a869088c48f0c21.hot-update.js 2.81 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.679a0a869088c48f0c21.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.51 MiB = bundle.js 1.51 MiB main.679a0a869088c48f0c21.hot-update.js 2.81 KiB
-cached modules 1.34 MiB [cached] 52 modules
+  asset main.0a76306af1a4be0d2ee3.hot-update.js 52 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.0a76306af1a4be0d2ee3.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.56 MiB = bundle.js 1.51 MiB main.0a76306af1a4be0d2ee3.hot-update.js 52 KiB
+cached modules 1.3 MiB [cached] 53 modules
 runtime modules 27.5 KiB 14 modules
-./src/App.js 552 bytes [built] [code generated]
-webpack 5.99.9 compiled successfully in 57 ms
-assets by status 1.51 MiB [cached] 2 assets
-cached modules 1.3 MiB (javascript) 27.5 KiB (runtime) [cached] 66 modules
-./src/ClashRealmsMain.js 41.5 KiB [built]
-webpack 5.99.9 compiled successfully in 210 ms
-assets by status 1.51 MiB [cached] 2 assets
-cached modules 1.3 MiB (javascript) 27.5 KiB (runtime) [cached] 66 modules
-./src/ClashRealmsMain.js 41.5 KiB [built]
-webpack 5.99.9 compiled successfully in 172 ms
-Injecting EditorRootWrapper import: ../.ve/EditorRootWrapper
+./src/ClashRealmsMain.js 41.6 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 185 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.51 MiB
+assets by path *.js 1.56 MiB
   asset bundle.js 1.51 MiB [emitted] (name: main)
-  asset main.5498d3995d10ba08ad7b.hot-update.js 2.83 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.5498d3995d10ba08ad7b.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.51 MiB = bundle.js 1.51 MiB main.5498d3995d10ba08ad7b.hot-update.js 2.83 KiB
-cached modules 1.34 MiB [cached] 52 modules
+  asset main.9d1768312716c8908231.hot-update.js 52.1 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.9d1768312716c8908231.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.56 MiB = bundle.js 1.51 MiB main.9d1768312716c8908231.hot-update.js 52.1 KiB
+cached modules 1.3 MiB [cached] 53 modules
 runtime modules 27.5 KiB 14 modules
-./src/index.js 607 bytes [built] [code generated]
-webpack 5.99.9 compiled successfully in 40 ms
-Injecting EditorRootWrapper import: ../.ve/EditorRootWrapper
-assets by path *.js 1.51 MiB
+./src/ClashRealmsMain.js 41.7 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21 340:8-25
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21 340:8-25
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 156 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.56 MiB
   asset bundle.js 1.51 MiB [emitted] (name: main)
-  asset main.278fb6385c8befe52af1.hot-update.js 854 bytes [emitted] [immutable] [hmr] (name: main)
-asset index.html 1.92 KiB [emitted]
-asset main.278fb6385c8befe52af1.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.51 MiB = bundle.js 1.51 MiB main.278fb6385c8befe52af1.hot-update.js 854 bytes
-cached modules 1.27 MiB [cached] 43 modules
+  asset main.9655f28c011a56e0b664.hot-update.js 52.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.9655f28c011a56e0b664.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.56 MiB = bundle.js 1.51 MiB main.9655f28c011a56e0b664.hot-update.js 52.2 KiB
+cached modules 1.3 MiB [cached] 53 modules
 runtime modules 27.5 KiB 14 modules
-javascript modules 70.9 KiB
-  modules by path ./src/*.js 58.7 KiB
-    ./src/index.js 607 bytes [built]
-    ./src/App.js 552 bytes [built]
-    ./src/ClashRealmsMain.js 41.5 KiB [built]
-    ./src/Snackbar.js 4.88 KiB [built]
-    ./src/ResourceBar.js 4.53 KiB [built]
-    ./src/ConfettiOverlay.js 2.86 KiB [built]
-    ./src/TutorialOverlay.js 3.72 KiB [built]
-  modules by path ./.ve/ 12.2 KiB
-    ./.ve/EditorRootWrapper.js 2.68 KiB [built]
-    ./.ve/EditorOverlay.jsx 1.58 KiB [built]
-    ./.ve/SidePanel.js 7.93 KiB [built]
-webpack 5.99.9 compiled successfully in 471 ms
+./src/ClashRealmsMain.js 41.7 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21 340:8-25 554:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 201:4-21 340:8-25 554:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 141 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.59 MiB
+  asset bundle.js 1.52 MiB [emitted] (name: main)
+  asset main.83c1ddf114a4282f81e5.hot-update.js 64.7 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.83c1ddf114a4282f81e5.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.59 MiB = bundle.js 1.52 MiB main.83c1ddf114a4282f81e5.hot-update.js 64.7 KiB
+cached modules 1.3 MiB [cached] 53 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 50.6 KiB
+  ./src/ClashRealmsMain.js 41.8 KiB [built] [code generated]
+  ./src/SettingsPanel.js 8.83 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 202:4-21 341:8-25 555:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 202:4-21 341:8-25 555:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 164 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.57 MiB
+  asset bundle.js 1.52 MiB [emitted] (name: main)
+  asset main.f85c985198f0c19e4092.hot-update.js 52.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.f85c985198f0c19e4092.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.57 MiB = bundle.js 1.52 MiB main.f85c985198f0c19e4092.hot-update.js 52.4 KiB
+cached modules 1.31 MiB [cached] 54 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 41.9 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 133 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.58 MiB
+  asset bundle.js 1.52 MiB [emitted] (name: main)
+  asset main.f5f40e74e51cd79f1126.hot-update.js 53.6 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.f5f40e74e51cd79f1126.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.58 MiB = bundle.js 1.52 MiB main.f5f40e74e51cd79f1126.hot-update.js 53.6 KiB
+cached modules 1.31 MiB [cached] 54 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 42.8 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27 587:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27 587:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 134 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.58 MiB
+  asset bundle.js 1.52 MiB [emitted] (name: main)
+  asset main.020c4fade1539e4209ec.hot-update.js 53.9 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.020c4fade1539e4209ec.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.58 MiB = bundle.js 1.52 MiB main.020c4fade1539e4209ec.hot-update.js 53.9 KiB
+cached modules 1.31 MiB [cached] 54 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 43 KiB [built] [code generated]
+
+ERROR in ./src/SoundManager.js 1:0-46
+Module not found: Error: Can't resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/click.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/click.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/click.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27 587:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27 587:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 2 errors in 150 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.53 MiB
+  asset bundle.js 1.53 MiB [emitted] (name: main)
+  asset main.8dcdff51608b4a4e1a62.hot-update.js 5.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8dcdff51608b4a4e1a62.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.8dcdff51608b4a4e1a62.hot-update.js 5.2 KiB
+cached modules 1.35 MiB [cached] 54 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 2.69 KiB
+  ./src/SoundManager.js 2.68 KiB [code generated]
+  ./src/assets/sfx/click.mp3 1 bytes [built] [code generated]
+
+ERROR in ./src/SoundManager.js 2:0-50
+Module not found: Error: Can't resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+resolve './assets/sfx/upgrade.mp3' in '/home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src'
+  using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src)
+    Field 'browser' doesn't contain a valid alias configuration
+    using description file: /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/package.json (relative path: ./src/assets/sfx/upgrade.mp3)
+      no extension
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+      .js
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.js doesn't exist
+      .jsx
+        Field 'browser' doesn't contain a valid alias configuration
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3.jsx doesn't exist
+      as directory
+        /home/kavia/workspace/code-generation/clashrealms-108548-788c84e6/clashrealms_frontend/src/assets/sfx/upgrade.mp3 doesn't exist
+ @ ./src/ClashRealmsMain.js 8:0-42 204:4-21 343:8-25 557:10-27 587:10-27
+ @ ./src/App.js 2:0-48 13:34-49
+ @ ./src/index.js 5:0-24 13:32-35
+
+webpack 5.99.9 compiled with 1 error in 47 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.53 MiB
+  asset bundle.js 1.53 MiB [emitted] (name: main)
+  asset main.25eb1312be1e6374aba9.hot-update.js 5.22 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.25eb1312be1e6374aba9.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.25eb1312be1e6374aba9.hot-update.js 5.22 KiB
+cached modules 1.35 MiB [cached] 55 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 2.69 KiB
+  ./src/SoundManager.js 2.68 KiB [code generated]
+  ./src/assets/sfx/upgrade.mp3 1 bytes [built] [code generated]
+webpack 5.99.9 compiled successfully in 37 ms
+assets by status 1.53 MiB [cached] 2 assets
+cached modules 1.36 MiB (javascript) 27.5 KiB (runtime) [cached] 70 modules
+./src/assets/sfx/click.mp3 1 bytes [built]
+webpack 5.99.9 compiled successfully in 29 ms
+assets by status 1.53 MiB [cached] 2 assets
+cached modules 1.36 MiB (javascript) 27.5 KiB (runtime) [cached] 70 modules
+./src/assets/sfx/upgrade.mp3 1 bytes [built]
+webpack 5.99.9 compiled successfully in 29 ms

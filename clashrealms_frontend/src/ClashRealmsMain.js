@@ -5,6 +5,8 @@ import ConfettiOverlay from "./ConfettiOverlay";
 import TutorialOverlay from "./TutorialOverlay";
 import "./TutorialOverlay.css";
 import { useSnackbar } from "./Snackbar";
+import SoundManager from "./SoundManager";
+import SettingsPanel from "./SettingsPanel";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -87,6 +89,8 @@ function ClashRealmsMain() {
   // Control popups and pass context for popups
   const [popup, setPopup] = useState(null);
   const [popupData, setPopupData] = useState({});
+  // Settings Panel control
+  const [showSettings, setShowSettings] = useState(false);
 
   // --- LOCAL STORAGE: Load resources, buildings, troop upgrades ---
   const [resourceCounts, setResourceCounts] = useState(() =>
@@ -136,6 +140,7 @@ function ClashRealmsMain() {
 
   // Handler: Animate resource "collection" (mock increment)
   function handleCollectResource(type) {
+    SoundManager.play("click");
     setResourceCounts(res => {
       let delta = 0;
       if (type === "gold") delta = 8 + Math.floor(Math.random() * 24);
@@ -248,6 +253,7 @@ function ClashRealmsMain() {
             message: `Upgrading ${t.label}...`,
             type: "info"
           });
+        SoundManager.play("upgrade");
         // Set upgrading flag and cooldown
         return {
           ...t,
@@ -434,6 +440,27 @@ function ClashRealmsMain() {
           resources={resourceCounts}
           onCollect={handleCollectResource}
         />
+        {/* Settings Button */}
+        <button
+          id="cr-settings-btn"
+          className="cr-btn-accent"
+          style={{
+            marginLeft: 9,
+            fontSize: 18,
+            padding: "5.5px 12px 5px 12px",
+            borderRadius: 11,
+            alignSelf: "center",
+            outline: "none",
+            border: "2px solid transparent"
+          }}
+          aria-label="Open Settings"
+          onClick={() => { SoundManager.play("click"); setShowSettings(true); }}
+          tabIndex={0}
+          onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+          onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
+        >
+          <span role="img" aria-label="Settings" style={{fontSize:"1.18em"}}>⚙️</span>
+        </button>
         {/* Help/tutorial launch button */}
         <button
           id="cr-help-tutorial-btn"
@@ -448,7 +475,7 @@ function ClashRealmsMain() {
             border: "2px solid transparent"
           }}
           aria-label="Show Tutorial"
-          onClick={startTutorial}
+          onClick={() => { SoundManager.play("click"); startTutorial(); }}
           tabIndex={0}
           onFocus={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
           onBlur={e => (e.currentTarget.style.border = "2px solid transparent")}
@@ -493,6 +520,9 @@ function ClashRealmsMain() {
           onPrev={() => setTutorialStep(s => Math.max(s - 1, 0))}
           onClose={closeTutorial}
         />
+      )}
+      {showSettings && (
+        <SettingsPanel onClose={() => setShowSettings(false)} />
       )}
     </div>
   );
