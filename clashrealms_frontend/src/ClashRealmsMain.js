@@ -366,7 +366,14 @@ function BottomNav({ navItems, active, onChange }) {
 
 
 
-// --- Misc --- 
+/*
+ If you have asset or image URLs that use PUBLIC_URL directly (e.g. <img src={PUBLIC_URL + "/foo.png"} />),
+ replace PUBLIC_URL with process.env.PUBLIC_URL for correct Create React App support.
+ Example:
+   <img src={process.env.PUBLIC_URL + "/foo.png"} alt="..." />
+*/
+
+ // --- Misc --- 
 function Hint({ children }) {
   return <div className="cr-hint">{children}</div>;
 }

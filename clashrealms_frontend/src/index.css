@@ -3,6 +3,21 @@
   box-sizing: border-box;
 }
 
+/* Make tap targets adhere to min size for touch screens globally */
+@media (pointer: coarse) {
+  button, [role="button"], .cr-building, .cr-resource-collect-btn, .cr-bottom-nav-btn, .cr-popup-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Font scaling for ultra-small viewports */
+@media (max-width: 340px) {
+  html {
+    font-size: 13px !important;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
