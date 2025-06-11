@@ -7,6 +7,7 @@ import "./TutorialOverlay.css";
 import { useSnackbar } from "./Snackbar";
 import SoundManager from "./SoundManager";
 import SettingsPanel from "./SettingsPanel";
+import UserProfileModal from "./UserProfileModal";
 import LoadingOverlay from "./LoadingOverlay";
 
 // Core Navigation items
@@ -28,6 +29,22 @@ function loadLocal(key, fallback) {
   } catch (err) {
     return fallback;
   }
+}
+// Utility: Load user profile (name, avatar)
+function loadUserProfile() {
+  try {
+    const data = window.localStorage.getItem("cr_user_profile");
+    if (!data) return { name: "", avatar: "knight" };
+    return JSON.parse(data);
+  } catch {
+    return { name: "", avatar: "knight" };
+  }
+}
+// Utility: Save user profile
+function saveUserProfile(profile) {
+  try {
+    window.localStorage.setItem("cr_user_profile", JSON.stringify(profile));
+  } catch {}
 }
 /**
  * Utility: Safe localStorage save
@@ -97,17 +114,33 @@ function ClashRealmsMain() {
   // Settings Panel control
   const [showSettings, setShowSettings] = useState(false);
 
+  // --- USER PROFILE (avatar, display name), persisted
+  const [userProfile, setUserProfile] = useState(() => loadUserProfile());
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
   // --- LOCAL STORAGE: Load resources, buildings, troop upgrades ---
   const [resourceCounts, setResourceCounts] = useState(() =>
     loadLocal("cr_resources", RESOURCE_DEFAULTS)
   );
   const [persistLoaded, setPersistLoaded] = useState(false);
 
-  // --- Show tutorial on first launch ---
+  // --- Show tutorial on first launch or show avatar/name selection popup if profile missing
   useEffect(() => {
     if (window.localStorage) {
       const seenGuide = window.localStorage.getItem("cr_seen_tutorial");
       if (!seenGuide) setTutorialStep(0); // show on first launch
+      // On first run, or if profile is missing, force open user profile
+      let prof = window.localStorage.getItem("cr_user_profile");
+      if (!prof) setShowProfileModal(true);
+      else {
+        // In case profile is missing name or avatar
+        try {
+          const parsed = JSON.parse(prof);
+          if (!parsed.name || !parsed.avatar) setShowProfileModal(true);
+        } catch {
+          setShowProfileModal(true);
+        }
+      }
     }
   }, []);
 
@@ -138,6 +171,11 @@ function ClashRealmsMain() {
   useEffect(() => {
     if (persistLoaded) saveLocal("cr_troops", troopUpgrades);
   }, [troopUpgrades, persistLoaded]);
+
+  // Save user profile to localStorage any time it changes
+  useEffect(() => {
+    saveUserProfile(userProfile);
+  }, [userProfile]);
 
   // Confetti state: what event caused celebration?
   const [confetti, setConfetti] = useState({ show: false, key: 0, message: "" });
@@ -349,11 +387,11 @@ function ClashRealmsMain() {
           />
         );
       case "attack":
-        return <BattleScreen onWin={() => celebrate("Victory in Battle!")} />;
+        return <BattleScreen onWin={() => celebrate("Victory in Battle!")} isScreenLoading={isScreenLoading} />;
       case "clan":
-        return <ClanScreen />;
+        return <ClanScreen isScreenLoading={isScreenLoading} />;
       case "shop":
-        return <ShopScreen />;
+        return <ShopScreen isScreenLoading={isScreenLoading} />;
       default:
         return null;
     }
@@ -415,6 +453,90 @@ function ClashRealmsMain() {
       window.localStorage.setItem("cr_seen_tutorial", "true");
   }
 
+  // --- Render user avatar/name as a mini profile/profile button in the header ---
+  function renderProfileButton() {
+    let avatarNode;
+    if (userProfile.avatar && userProfile.avatar.startsWith("data:image")) {
+      // custom uploaded
+      avatarNode = (
+        <img
+          src={userProfile.avatar}
+          alt="avatar"
+          style={{
+            width: 36, height: 36, borderRadius: "50%",
+            objectFit: "cover", border: "2px solid #3DBB3D", background: "#fff", marginRight: 6
+          }}
+          draggable={false}
+        />
+      );
+    } else {
+      // preset avatar
+      let preset = null;
+      // Matching to array from the modal file; could be DRY'd but this is robust and won't ever break.
+      const emojiMap = {
+        knight: "🛡️",
+        barbarian: "👹",
+        archer: "🏹",
+        wizard: "🧙",
+        king: "🤴",
+        goblin: "👺"
+      };
+      preset = (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: "#fff",
+            border: "2px solid #F5C542",
+            fontSize: "1.4em",
+            marginRight: 6
+          }}
+          aria-label="Profile Picture"
+        >
+          <span role="img">{emojiMap[userProfile.avatar] || "🛡️"}</span>
+        </span>
+      );
+    }
+    return (
+      <button
+        className="cr-btn-primary"
+        aria-label="Edit Profile and Avatar"
+        style={{
+          display: "flex", alignItems: "center", marginLeft: 9, fontSize: 16,
+          borderRadius: 21, padding: "3px 10px 3px 2px", outline: "none", border: "2px solid #3DBB3D",
+          background: "#fffcea", color: "#4A2E0B", fontWeight: 500, gap: 3, minWidth:0
+        }}
+        onClick={() => {
+          SoundManager.play("click");
+          setShowProfileModal(true);
+        }}
+        tabIndex={0}
+        onFocus={e => (e.currentTarget.style.border = "2px solid #31c333")}
+        onBlur={e => (e.currentTarget.style.border = "2px solid #3DBB3D")}
+        title="Edit your profile/appearance"
+      >
+        {avatarNode}
+        <span
+          style={{
+            maxWidth: 66,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            textAlign: "left",
+            color: "#38210D",
+            fontSize: "1.06em"
+          }}
+        >
+          {userProfile.name ? userProfile.name : <span style={{ color: "#bba02a" }}>Set Name</span>}
+        </span>
+      </button>
+    );
+  }
+
   return (
     <div className="cr-app-theme">
       {/* Confetti celebration overlay */}
@@ -429,7 +551,7 @@ function ClashRealmsMain() {
         tabIndex={0}
         role="banner"
         aria-label="Game Header and Resource Bar"
-        style={{ outline: "none" }}
+        style={{ outline: "none", gap: 6, display: "flex" }}
         onKeyDown={e => {
           if (e.key === "Tab") {
             // Visually indicate header focus ring on keyboard nav
@@ -445,6 +567,7 @@ function ClashRealmsMain() {
           resources={resourceCounts}
           onCollect={handleCollectResource}
         />
+        {renderProfileButton()}
         {/* Settings Button */}
         <button
           id="cr-settings-btn"
@@ -552,6 +675,19 @@ function ClashRealmsMain() {
           onClose={closeTutorial}
         />
       )}
+      {/* User Profile Modal (avatar/name picker) */}
+      {showProfileModal && (
+        <UserProfileModal
+          isOpen={showProfileModal}
+          onClose={() => setShowProfileModal(false)}
+          initial={userProfile}
+          onSave={data => {
+            setUserProfile({ ...userProfile, ...data });
+            showSnackbar && showSnackbar({ message: "Profile saved!", type: "success" });
+          }}
+        />
+      )}
+
       {showSettings && (
         <SettingsPanel onClose={() => setShowSettings(false)} />
       )}
@@ -787,7 +923,7 @@ function VillageView({
 
 // --- Other screens & popups ---
 
-function BattleScreen({ onWin }) {
+function BattleScreen({ onWin, isScreenLoading }) {
   // Mock: Pretend user can "win" a mock battle
   const [won, setWon] = useState(false);
 
@@ -836,7 +972,7 @@ function BattleScreen({ onWin }) {
   );
 }
 
-function ClanScreen() {
+function ClanScreen({ isScreenLoading }) {
   return (
     <div className="cr-clan-screen" tabIndex={0} role="region" aria-label="Clan Screen">
       <h2>Clans</h2>
@@ -848,7 +984,7 @@ function ClanScreen() {
   );
 }
 
-function ShopScreen() {
+function ShopScreen({ isScreenLoading }) {
   return (
     <div className="cr-shop-screen" tabIndex={0} role="region" aria-label="Shop Screen">
       <h2>Shop</h2>
@@ -870,7 +1006,7 @@ function ShopScreen() {
 
 // --- Pop-up Menus ---
 
-function Popup({ title, children, onClose }) {
+function Popup({ title, children, onClose, isScreenLoading }) {
   // Focus management: focus dialog on open, return focus on close
   const popupRef = React.useRef(null);
   useEffect(() => {
