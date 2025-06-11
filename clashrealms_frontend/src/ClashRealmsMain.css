@@ -1,0 +1,255 @@
+:root {
+  /* ClashRealms theme */
+  --cr-primary: #F5C542;
+  --cr-secondary: #4A2E0B;
+  --cr-accent: #3DBB3D;
+  --cr-bg-light: #fffcea;
+  --cr-bg-card: #fff9e0;
+  --cr-border: #e0b742;
+  --cr-shadow: rgba(245, 197, 66, 0.10);
+  --cr-text-main: #38210D;
+  --cr-text-muted: #756042;
+  --cr-popup-overlay: rgba(74,46,11,0.15);
+  --cr-nav-active: #fff5c2;
+}
+
+/* Theme/Container */
+.cr-app-theme {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cr-bg-light);
+  color: var(--cr-text-main);
+  font-family: 'Inter', 'Roboto', 'Arial', sans-serif;
+}
+
+/* Header */
+.cr-header {
+  background: var(--cr-secondary);
+  color: var(--cr-primary);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px var(--cr-shadow);
+}
+
+.cr-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.cr-resources-bar {
+  display: flex;
+  gap: 18px;
+  font-size: 1rem;
+  color: var(--cr-bg-light);
+}
+
+.cr-gold { color: var(--cr-primary); }
+.cr-elixir { color: #bc56f2; }
+.cr-gems { color: var(--cr-accent); }
+
+/* Main section */
+.cr-main-content {
+  flex: 1 1 0;
+  margin-top: 12px;
+  margin-bottom: 62px; /* for nav */
+  padding: 0 0.5rem;
+}
+
+/* Village view */
+.cr-village-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+.cr-buildings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(110px, 1fr));
+  gap: 32px;
+  padding: 32px 0;
+  justify-items: center;
+}
+.cr-building {
+  background: var(--cr-bg-card);
+  border: 2px solid var(--cr-primary);
+  color: var(--cr-secondary);
+  border-radius: 18px;
+  width: 120px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  letter-spacing: .5px;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 16px var(--cr-shadow);
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.15s;
+}
+.cr-building:active,
+.cr-building:focus {
+  border-color: var(--cr-accent);
+  outline: none;
+}
+
+.cr-helperbar {
+  margin-top: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Pop-up overlay */
+.cr-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: var(--cr-popup-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+.cr-popup-card {
+  background: var(--cr-bg-card);
+  min-width: 320px;
+  max-width: 90vw;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px var(--cr-shadow);
+  padding: 28px 24px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 2px solid var(--cr-primary);
+  animation: cr-fade-pop .25s;
+}
+@keyframes cr-fade-pop {
+  from { opacity: 0; transform: scale(0.92);}
+  to   { opacity: 1; transform: scale(1);}
+}
+.cr-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  color: var(--cr-secondary);
+  font-size: 1.1rem;
+}
+.cr-popup-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--cr-primary);
+  outline: none;
+}
+.cr-popup-content {
+  margin-top: 12px;
+}
+
+/* Bottom nav */
+.cr-bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--cr-secondary);
+  border-top: 2px solid var(--cr-primary);
+  display: flex;
+  justify-content: space-around;
+  height: 56px;
+  z-index: 110;
+  padding: 0;
+}
+.cr-bottom-nav-btn {
+  flex: 1;
+  background: transparent;
+  color: var(--cr-primary);
+  border: none;
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 2px 0 0 0;
+  outline: none;
+  transition: background .16s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cr-bottom-nav-btn.active,
+.cr-bottom-nav-btn:active {
+  background: var(--cr-nav-active);
+  color: var(--cr-secondary);
+}
+.cr-nav-icon {
+  font-size: 1.4em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* Buttons */
+.cr-btn-primary,
+.cr-btn-accent {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background .16s;
+  box-shadow: 0 2px 6px var(--cr-shadow);
+}
+.cr-btn-primary {
+  background: var(--cr-primary);
+  color: var(--cr-secondary);
+}
+.cr-btn-accent {
+  background: var(--cr-accent);
+  color: #fff;
+}
+.cr-btn-disabled {
+  background: #ccc;
+  color: #888;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: not-allowed;
+  padding: 8px 16px;
+}
+.cr-hint {
+  font-size: 0.96rem;
+  color: var(--cr-text-muted);
+  margin-top: 6px;
+}
+
+.cr-battle-screen,
+.cr-clan-screen,
+.cr-shop-screen {
+  max-width: 476px;
+  margin: 0 auto;
+  padding: 24px 0;
+  text-align: center;
+}
+.cr-battlefield-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--cr-bg-card);
+  margin: 18px auto 0 auto;
+  border-radius: 18px;
+  padding: 38px 10px 38px 10px;
+  border: 1.5px solid var(--cr-border);
+}
+.cr-battlefield-placeholder .emoji {
+  font-size: 2.6em;
+  margin-bottom: 9px;
+}
