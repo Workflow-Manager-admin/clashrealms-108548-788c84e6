@@ -1,6 +1,9 @@
 :root {
   /* ClashRealms theme */
   --cr-primary: #F5C542;
+  --cr-loading-bg: rgba(250,235,137,0.29);
+  --cr-loading-spinner: #F5C542;
+  --cr-loading-card-bg: #fff9e7;
   --cr-secondary: #4A2E0B;
   --cr-accent: #3DBB3D;
   --cr-bg-light: #fffcea;
@@ -587,4 +590,81 @@
 .cr-battlefield-placeholder .emoji {
   font-size: 2.6em;
   margin-bottom: 9px;
+}
+
+/* --- LOADING OVERLAY/SCREEN --- */
+.cr-loading-overlay {
+  position: fixed;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: var(--cr-loading-bg,rgba(253,245,186,0.32));
+  z-index: 170101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(.4,1.3,.53,1.02);
+}
+.cr-loading-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cr-loading-card {
+  background: var(--cr-loading-card-bg,#fffbea);
+  border-radius: 18px;
+  padding: 38px 48px;
+  box-shadow: 0 6px 42px #f5c54232, 0 2.5px 13px #a3991aaa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: loading-pop-scale 0.37s cubic-bezier(.16,.75,.38,1.49);
+  border: 2px solid var(--cr-primary,#f5c542);
+}
+@keyframes loading-pop-scale {
+  from { opacity: 0; transform: scale(.91);}
+  to   { opacity: 1; transform: scale(1);}
+}
+.cr-loading-spinner {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 4.2px solid var(--cr-loading-spinner,#f5c54236);
+  border-top: 4.2px solid var(--cr-primary,#F5C542);
+  animation: loadingspin 0.92s linear infinite;
+  margin-bottom: 17px;
+}
+@keyframes loadingspin {
+  from { transform: rotate(0deg);}
+  to   { transform: rotate(360deg);}
+}
+.cr-loading-message {
+  color: #52411c;
+  font-weight: 600;
+  font-size: 1.12em;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.2em;
+}
+@media (max-width: 580px) {
+  .cr-loading-card { padding: 24px 12vw; }
+}
+@media (max-width: 420px) {
+  .cr-loading-card { padding: 18px 2vw; min-width: 0; }
+}
+
+/* --- Skeleton shimmer for screen content / lists --- */
+.cr-skeleton-ui {
+  display: block !important;
+  background: linear-gradient(
+    90deg,
+    #f5e7c0 30%,
+    #fffcea 60%,
+    #f5e7c0 93%
+  );
+  background-size: 380% 100%;
+  animation: loading-skeleton-shine 1.37s linear infinite;
+  border-radius: 10px;
+}
+@keyframes loading-skeleton-shine {
+  0% { background-position-x: 0%; }
+  100% { background-position-x: 100%; }
 }

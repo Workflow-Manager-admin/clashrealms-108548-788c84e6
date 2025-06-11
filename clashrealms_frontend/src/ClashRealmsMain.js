@@ -7,6 +7,7 @@ import "./TutorialOverlay.css";
 import { useSnackbar } from "./Snackbar";
 import SoundManager from "./SoundManager";
 import SettingsPanel from "./SettingsPanel";
+import LoadingOverlay from "./LoadingOverlay";
 
 // Core Navigation items
 const NAV_ITEMS = [
@@ -79,6 +80,10 @@ const initialTroops = [
 function ClashRealmsMain() {
   // Navigation state: what screen is active?
   const [activeScreen, setActiveScreen] = useState("base");
+
+  // Screen loading state (for animated transitions)
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [pendingScreen, setPendingScreen] = useState(null);
 
   // --- Snackbar hook ---
   const showSnackbar = useSnackbar();
@@ -485,13 +490,28 @@ function ClashRealmsMain() {
       </header>
 
       <main className="cr-main-content" tabIndex={0} role="main" aria-label="Main Game Content">
-        {renderScreen()}
+        {/* Show skeleton shimmer if loading */}
+        {isScreenLoading ? (
+          <ScreenSkeleton screen={pendingScreen || activeScreen} />
+        ) : (
+          renderScreen()
+        )}
       </main>
 
       <BottomNav
         navItems={NAV_ITEMS}
         active={activeScreen}
-        onChange={setActiveScreen}
+        onChange={key => {
+          if (key === activeScreen || isScreenLoading) return;
+          setIsScreenLoading(true);
+          setPendingScreen(key);
+          // Simulate a minimum 700ms load for effect—replace with real async if needed
+          setTimeout(() => {
+            setActiveScreen(key);
+            setIsScreenLoading(false);
+            setPendingScreen(null);
+          }, 700);
+        }}
       />
 
       {/* Pop-up Menus */}
@@ -524,6 +544,9 @@ function ClashRealmsMain() {
       {showSettings && (
         <SettingsPanel onClose={() => setShowSettings(false)} />
       )}
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -744,6 +767,9 @@ function VillageView({
           </span>
         </Hint>
       </div>
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -792,6 +818,9 @@ function BattleScreen({ onWin }) {
           >Victory!</span>
         )}
       </div>
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -801,6 +830,9 @@ function ClanScreen() {
     <div className="cr-clan-screen" tabIndex={0} role="region" aria-label="Clan Screen">
       <h2>Clans</h2>
       <p>Clan features coming soon. Join or create a clan, chat, and participate in clan wars.</p>
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -818,6 +850,9 @@ function ShopScreen() {
       >
         In-App Purchases Integration Placeholder
       </button>
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -855,6 +890,9 @@ function Popup({ title, children, onClose }) {
         </div>
         <div className="cr-popup-content">{children}</div>
       </div>
+      {/* Global animated loader for screen transitions */}
+      <LoadingOverlay show={isScreenLoading} message="Switching screen…" />
+
     </div>
   );
 }
@@ -1015,5 +1053,53 @@ function iconForNav(key) {
       return null;
   }
 }
+
+/** Simple screen shimmer skeletons for main screens */
+function ScreenSkeleton({ screen }) {
+  // Choose different skeletons for each screen if desired
+  switch (screen) {
+    case "base":
+      return (
+        <div className="cr-village-view">
+          <div className="cr-buildings-grid" style={{ pointerEvents: "none" }}>
+            {[1, 2, 3, 4].map((n, i) => (
+              <div
+                key={i}
+                className="cr-skeleton-ui"
+                style={{ width: 120, height: 110, margin: 8 }}
+                aria-hidden="true"
+              ></div>
+            ))}
+          </div>
+          <div className="cr-skeleton-ui" style={{ width: 265, height: 23, margin: "18px auto 9px auto" }}></div>
+        </div>
+      );
+    case "attack":
+      return (
+        <div className="cr-battle-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
+          <div className="cr-skeleton-ui" style={{ width: 260, height: 68, margin: "55px auto" }} />
+          <div className="cr-skeleton-ui" style={{ width: 110, height: 32, margin: "22px auto" }} />
+        </div>
+      );
+    case "clan":
+      return (
+        <div className="cr-clan-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
+          <div className="cr-skeleton-ui" style={{ width: 250, height: 34, margin: "37px auto 0 auto" }} />
+          <div className="cr-skeleton-ui" style={{ width: 195, height: 24, margin: "19px auto" }} />
+        </div>
+      );
+    case "shop":
+      return (
+        <div className="cr-shop-screen" style={{ maxWidth: 476, margin: "0 auto" }}>
+          <div className="cr-skeleton-ui" style={{ width: 201, height: 31, margin: "32px auto 0 auto" }} />
+          <div className="cr-skeleton-ui" style={{ width: 130, height: 22, margin: "17px auto" }} />
+        </div>
+      );
+    default:
+      return <div />;
+  }
+}
+
+// Ensure no stray isScreenLoading references below this line!
 
 export default ClashRealmsMain;

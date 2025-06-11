@@ -12,9 +12,9 @@ asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
 cacheable modules 1.36 MiB
   modules by path ./node_modules/ 1.24 MiB 31 modules
-  modules by path ./src/ 103 KiB
+  modules by path ./src/ 104 KiB
     modules by path ./src/*.css 31.7 KiB 10 modules
-    modules by path ./src/*.js 71.6 KiB 9 modules
+    modules by path ./src/*.js 72.4 KiB 9 modules
     modules by path ./src/assets/sfx/*.mp3 2 bytes
       ./src/assets/sfx/click.mp3 1 bytes [built] [code generated]
       ./src/assets/sfx/upgrade.mp3 1 bytes [built] [code generated]
@@ -22,54 +22,94 @@ cacheable modules 1.36 MiB
     modules by path ./.ve/*.js 10.6 KiB 2 modules
     modules by path ./.ve/*.css 2.93 KiB 2 modules
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1963 ms
+webpack 5.99.9 compiled successfully in 1893 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.53 MiB
+assets by path *.js 1.54 MiB
   asset bundle.js 1.53 MiB [emitted] (name: main)
-  asset main.d9ac57c3287588b0dae1.hot-update.js 5.04 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.d9ac57c3287588b0dae1.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.d9ac57c3287588b0dae1.hot-update.js 5.04 KiB
-cached modules 1.35 MiB [cached] 56 modules
+  asset main.2d1813d97316754b17f2.hot-update.js 15.7 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.2d1813d97316754b17f2.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.54 MiB = bundle.js 1.53 MiB main.2d1813d97316754b17f2.hot-update.js 15.7 KiB
+cached modules 1.34 MiB [cached] 56 modules
 runtime modules 27.5 KiB 14 modules
-./src/SoundManager.js 2.77 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 61 ms
+./node_modules/css-loader/dist/cjs.js!./src/ClashRealmsMain.css 12.7 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 96 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.53 MiB
+assets by path *.js 1.55 MiB
   asset bundle.js 1.53 MiB [emitted] (name: main)
-  asset main.a8d645a1572fdf6d046f.hot-update.js 5.25 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.a8d645a1572fdf6d046f.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.a8d645a1572fdf6d046f.hot-update.js 5.25 KiB
-cached modules 1.35 MiB [cached] 56 modules
+  asset main.9995a352a174525946d1.hot-update.js 17.7 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.9995a352a174525946d1.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.55 MiB = bundle.js 1.53 MiB main.9995a352a174525946d1.hot-update.js 17.7 KiB
+cached modules 1.34 MiB [cached] 56 modules
 runtime modules 27.5 KiB 14 modules
-./src/SoundManager.js 2.97 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 52 ms
+./node_modules/css-loader/dist/cjs.js!./src/ClashRealmsMain.css 14.6 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 58 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.53 MiB
+assets by path *.js 1.59 MiB
   asset bundle.js 1.53 MiB [emitted] (name: main)
-  asset main.36e9739f2300824fff47.hot-update.js 5.54 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.36e9739f2300824fff47.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.36e9739f2300824fff47.hot-update.js 5.54 KiB
-cached modules 1.35 MiB [cached] 56 modules
+  asset main.0423c1e40b4338008a4f.hot-update.js 57.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.0423c1e40b4338008a4f.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.59 MiB = bundle.js 1.53 MiB main.0423c1e40b4338008a4f.hot-update.js 57.2 KiB
+cached modules 1.32 MiB [cached] 56 modules
 runtime modules 27.5 KiB 14 modules
-./src/SoundManager.js 3.26 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 42 ms
+javascript modules 44.8 KiB
+  ./src/ClashRealmsMain.js 43 KiB [built] [code generated]
+  ./src/LoadingOverlay.js 1.8 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 286 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.53 MiB
+assets by path *.js 1.58 MiB
   asset bundle.js 1.53 MiB [emitted] (name: main)
-  asset main.58dd7f77b7a197ba9ba7.hot-update.js 5.5 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.58dd7f77b7a197ba9ba7.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.58dd7f77b7a197ba9ba7.hot-update.js 5.5 KiB
-cached modules 1.35 MiB [cached] 56 modules
+  asset main.32630bea802e366ae5cc.hot-update.js 54.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.32630bea802e366ae5cc.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.58 MiB = bundle.js 1.53 MiB main.32630bea802e366ae5cc.hot-update.js 54.4 KiB
+cached modules 1.32 MiB [cached] 57 modules
 runtime modules 27.5 KiB 14 modules
-./src/SoundManager.js 3.31 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 66 ms
+./src/ClashRealmsMain.js 43.2 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 173 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.53 MiB
+assets by path *.js 1.59 MiB
   asset bundle.js 1.53 MiB [emitted] (name: main)
-  asset main.d31504fc99296449f0ca.hot-update.js 5.7 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.d31504fc99296449f0ca.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.53 MiB = bundle.js 1.53 MiB main.d31504fc99296449f0ca.hot-update.js 5.7 KiB
-cached modules 1.35 MiB [cached] 56 modules
+  asset main.8726e98952cbea07bd0c.hot-update.js 55 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.8726e98952cbea07bd0c.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.59 MiB = bundle.js 1.53 MiB main.8726e98952cbea07bd0c.hot-update.js 55 KiB
+cached modules 1.32 MiB [cached] 57 modules
 runtime modules 27.5 KiB 14 modules
-./src/SoundManager.js 3.5 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 83 ms
+./src/ClashRealmsMain.js 43.7 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 150 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.59 MiB
+  asset bundle.js 1.53 MiB [emitted] (name: main)
+  asset main.a418237ca14e1a53d298.hot-update.js 56.6 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.a418237ca14e1a53d298.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.59 MiB = bundle.js 1.53 MiB main.a418237ca14e1a53d298.hot-update.js 56.6 KiB
+cached modules 1.32 MiB [cached] 57 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 44.7 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 202 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.6 MiB
+  asset bundle.js 1.54 MiB [emitted] (name: main)
+  asset main.315967fef8f7dcd73398.hot-update.js 61.1 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.315967fef8f7dcd73398.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.6 MiB = bundle.js 1.54 MiB main.315967fef8f7dcd73398.hot-update.js 61.1 KiB
+cached modules 1.32 MiB [cached] 57 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 48.3 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 296 ms
+assets by status 1.54 MiB [cached] 2 assets
+cached modules 1.32 MiB (javascript) 27.5 KiB (runtime) [cached] 71 modules
+./src/ClashRealmsMain.js 48.3 KiB [built]
+webpack 5.99.9 compiled successfully in 169 ms
+assets by status 1.54 MiB [cached] 2 assets
+cached modules 1.32 MiB (javascript) 27.5 KiB (runtime) [cached] 71 modules
+./src/ClashRealmsMain.js 48.3 KiB [built]
+webpack 5.99.9 compiled successfully in 161 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.6 MiB
+  asset bundle.js 1.54 MiB [emitted] (name: main)
+  asset main.b742238979e840dbcdda.hot-update.js 61.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.b742238979e840dbcdda.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.6 MiB = bundle.js 1.54 MiB main.b742238979e840dbcdda.hot-update.js 61.2 KiB
+cached modules 1.32 MiB [cached] 57 modules
+runtime modules 27.5 KiB 14 modules
+./src/ClashRealmsMain.js 48.3 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 273 ms
