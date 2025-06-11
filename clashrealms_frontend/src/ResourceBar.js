@@ -3,10 +3,13 @@ import "./ClashRealmsMain.css";
 
 /**
  * Animated Resource Bar for ClashRealms (gold, elixir, gems).
- * Allows visual "collect" to increment and animate resource counters.
+ * Animates visual changes on "collect" mock actions.
  */
 
-// Utility: Animate a number from start to end over ms milliseconds
+/**
+ * PUBLIC_INTERFACE
+ * useAnimatedNumber - animate a value change smoothly for number display.
+ */
 function useAnimatedNumber(value, duration = 650) {
   const [displayed, setDisplayed] = useState(value);
   const from = useRef(value);
@@ -34,15 +37,18 @@ function useAnimatedNumber(value, duration = 650) {
   return displayed;
 }
 
-// PUBLIC_INTERFACE
-function AnimatedResourceBar({resources, onCollect}) {
-  // Animate each resource count
+/**
+ * PUBLIC_INTERFACE
+ * AnimatedResourceBar – shows gold, elixir, gems with animated counters and mock collect buttons.
+ */
+function AnimatedResourceBar({ resources, onCollect }) {
+  // Animated counts for resources
   const gold = useAnimatedNumber(resources.gold);
   const elixir = useAnimatedNumber(resources.elixir);
   const gems = useAnimatedNumber(resources.gems);
 
   return (
-    <div className="cr-resources-bar" style={{ gap: 0 }}>
+    <div className="cr-resources-bar" aria-label="Resource Bar">
       <ResourceItem
         icon="⛃"
         className="cr-gold"
@@ -68,19 +74,22 @@ function AnimatedResourceBar({resources, onCollect}) {
   );
 }
 
+/**
+ * ResourceItem – individual resource counter with animated "bump" and collect + button.
+ */
 function ResourceItem({ icon, className, value, label, onCollect }) {
-  // Bouncy animation on increment
   const [bump, setBump] = useState(false);
   const prev = useRef(value);
   useEffect(() => {
     if (value !== prev.current) {
       setBump(true);
-      const to = setTimeout(() => setBump(false), 260);
+      const timeout = setTimeout(() => setBump(false), 265);
       prev.current = value;
-      return () => clearTimeout(to);
+      return () => clearTimeout(timeout);
     }
     // eslint-disable-next-line
   }, [value]);
+
   return (
     <span
       className={className + (bump ? " cr-resource-bump" : "")}
@@ -100,7 +109,7 @@ function ResourceItem({ icon, className, value, label, onCollect }) {
       title={`Collect more ${label}! (mock)`}
     >
       {icon} <span>{value}</span>
-      <span className="cr-resource-collect-btn">+</span>
+      <span className="cr-resource-collect-btn" tabIndex={-1} aria-label={`Collect ${label}`}>+</span>
     </span>
   );
 }
